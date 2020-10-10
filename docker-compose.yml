@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  php:
+    build:
+      context: ./docker/apache
+      # dockerfile: ./docker/apache
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - 8000:80
+    container_name: tw-clone-php
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=tw_clone
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+    container_name: tw-clone-mysql
