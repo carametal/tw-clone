@@ -6,7 +6,7 @@ function Home() {
   return(
     <Container>
       <Row className="justify-content-center">
-        <Col className="col-md-8">
+        <Col md={8}>
           <Card>
             <Card.Header>Home Header.</Card.Header>
             <Card.Body>Home Body.</Card.Body>
