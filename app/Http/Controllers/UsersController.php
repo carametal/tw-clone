@@ -26,11 +26,6 @@ class UsersController extends Controller
             Auth::user()->update(['name' => $_POST['name'],
                     'email' => $_POST['email'],
                     'bio' => $_POST['bio']]);
-            // DB::table('users')
-            //     ->where('id', $id)
-            //     ->update(['name' => $_POST['name'],
-            //         'email' => $_POST['email'],
-            //         'bio' => $_POST['bio']]);
             $updated = true;
         }
         $user = DB::table('users')->where('id', $id)->first();
@@ -39,13 +34,5 @@ class UsersController extends Controller
             return abort(404);
         }
         return view('user', ['id' => $id, 'user' => $user, 'updated' => $updated]);
-    }
-
-    public function saveUser()
-    {
-        echo var_dump(['name' => $_POST['name'],
-                'email' => $_POST['email'],
-                'bio' => $_POST['bio']]);
-        return redirect("user/$id");
     }
 }
