@@ -21,8 +21,13 @@ class UsersController extends Controller
 
     public function user($id)
     {
+        if(Auth::user()->id !== (int) $id)
+        {
+            return abort(404);
+        }
         $updated = false;
-        if ($_SERVER["REQUEST_METHOD"] === 'POST')  {
+        if ($_SERVER["REQUEST_METHOD"] === 'POST')
+        {
             Auth::user()->update(['name' => $_POST['name'],
                     'email' => $_POST['email'],
                     'bio' => $_POST['bio']]);
