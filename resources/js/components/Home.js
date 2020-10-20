@@ -1,11 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import {Button, Card, Col, Container, Form, Row} from 'react-bootstrap';
 
 function Home() {
+  const [tweetText, setTweetText] = useState('');
+
+  const handleTweet = () => {
+    alert(tweetText);
+  }
+
   return(
     <Container>
       <Row className="justify-content-center">
+        <Col md={4}>
+          <Card>
+            <Card.Body>
+              <Form.Control
+                as="textarea"
+                row={10}
+                onChange={(e) => setTweetText(e.target.value)}
+              ></Form.Control>
+              <Button
+                variant="primary"
+                style={{ margin: "7px 0", width: "100%"}}
+                onClick={(e) => handleTweet(e)}
+              >ツイート</Button>
+            </Card.Body>
+          </Card>
+        </Col>
         <Col md={8}>
           <Card>
             <Card.Header>Home Header.</Card.Header>

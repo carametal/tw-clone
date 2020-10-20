@@ -13,3 +13,4 @@ npm-debug.log
 yarn-error.log
 /mysql
 /docker/mysql/volume
+/memory

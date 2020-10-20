@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tables\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -28,16 +29,10 @@ class UsersController extends Controller
         $updated = false;
         if ($_SERVER["REQUEST_METHOD"] === 'POST')
         {
-            Auth::user()->update(['name' => $_POST['name'],
-                    'email' => $_POST['email'],
-                    'bio' => $_POST['bio']]);
+            $user = new Users();
+            $user->update($_POST['name'], $_POST['email'], $_POST['bio']);
             $updated = true;
         }
-        $user = DB::table('users')->where('id', $id)->first();
-        if($user === null)
-        {
-            return abort(404);
-        }
-        return view('user', ['id' => $id, 'user' => $user, 'updated' => $updated]);
+        return view('user', ['id' => $id, 'user' => Auth::user(), 'updated' => $updated]);
     }
 }

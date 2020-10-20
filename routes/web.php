@@ -24,3 +24,5 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])->name('users');
 
 Route::match(['get', 'post'],'/user/{id}', [App\Http\Controllers\UsersController::class, 'user'])->name('user');
+
+route::match(['post'], '/tweet', [App\Http\Controllers\UsersController::class, 'tweet'])->name('tweet');

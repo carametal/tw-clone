@@ -25,7 +25,6 @@ class AuthenticationTest extends TestCase
 
     public function testLogin(): void
     {
-        echo var_dump($this->user);
         $response = $this->post(route('login'), [
             'email' => $this->user->email,
             'password' => $this->password,
