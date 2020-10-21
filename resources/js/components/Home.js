@@ -1,12 +1,21 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import {Button, Card, Col, Container, Form, Row} from 'react-bootstrap';
+import axios from 'axios';
 
 function Home() {
   const [tweetText, setTweetText] = useState('');
 
   const handleTweet = () => {
-    alert(tweetText);
+    const params = {
+      tweet: tweetText
+    };
+    axios.post('/tweet', params)
+      .then(res => {
+        setTweetText('');
+        //　ツイート一覧を読み直す処理
+      })
+      .catch(error => console.error(error));
   }
 
   return(
@@ -16,10 +25,11 @@ function Home() {
           <Card>
             <Card.Body>
               <Form.Control
+                name="tweet"
                 as="textarea"
                 row={10}
                 onChange={(e) => setTweetText(e.target.value)}
-              ></Form.Control>
+              />
               <Button
                 variant="primary"
                 style={{ margin: "7px 0", width: "100%"}}
