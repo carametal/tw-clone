@@ -23,6 +23,10 @@ class TweetController extends Controller
 
     public function timeline()
     {
-        return DB::select('select * from tweets');
+        return DB::table('tweets')
+            ->join('users', 'tweets.user_id', "=", 'users.id')
+            ->select('tweets.*', 'users.name')
+            ->get();
+
     }
 }

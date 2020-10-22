@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import {Button, Card, Col, Container, Form, Row} from 'react-bootstrap';
 import axios from 'axios';
+import TimeLine from "./TimeLine";
 
 function Home() {
   const [tweetText, setTweetText] = useState('');
@@ -39,10 +40,7 @@ function Home() {
           </Card>
         </Col>
         <Col md={8}>
-          <Card>
-            <Card.Header>Home Header.</Card.Header>
-            <Card.Body>Home Body.</Card.Body>
-          </Card>
+          <TimeLine />
         </Col>
       </Row>
     </Container>
