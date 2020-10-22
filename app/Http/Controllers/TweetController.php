@@ -8,6 +8,7 @@ use App\Models\Tables\Tweets;
 use App\Models\Tweet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TweetController extends Controller
 {
@@ -20,4 +21,8 @@ class TweetController extends Controller
         }
     }
 
+    public function timeline()
+    {
+        return DB::select('select * from tweets');
+    }
 }
