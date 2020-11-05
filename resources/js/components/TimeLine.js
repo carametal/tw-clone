@@ -1,21 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card, Col, Row} from "react-bootstrap";
 
-export default function TimeLine() {
-  const [tweets, setTweets] = useState([]);
-
-  useEffect(() => {
-    axios.get('timeline')
-      .then(res => setTweets(res.data))
-      .catch(error => console.error(error));
-  }, []);
-
+export default function TimeLine(props) {
   return(
     <>
       <Row style={{ padding: '0.75em 1.25em', border: '1px solid rgba(0, 0, 0, 0.125)', backgroundColor: 'rgba(0, 0, 0, 0.03)' }}>
         <Col>すべてのツイート</Col>
       </Row>
-      {tweets.map(t => {
+      {props.tweets.map(t => {
         return(
           <Row key={t.id} style={{ padding: '0.75em 1.25em', border: '1px solid rgba(0, 0, 0, 0.125)', borderTop: 'none' }}>
             <Col>

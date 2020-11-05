@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {Button, Card, Col, Container, Form, Row} from 'react-bootstrap';
 import axios from 'axios';
@@ -6,7 +6,6 @@ import TimeLine from "./TimeLine";
 
 function Home() {
   const [tweetText, setTweetText] = useState('');
-
   const handleTweet = () => {
     const params = {
       tweet: tweetText
@@ -14,10 +13,18 @@ function Home() {
     axios.post('/tweet', params)
       .then(res => {
         setTweetText('');
-        //　ツイート一覧を読み直す処理
+        updateTimeline();
       })
       .catch(error => console.error(error));
   }
+
+  const [tweets, setTweets] = useState([]);
+  const updateTimeline = () => {
+    axios.get('timeline')
+      .then(res => setTweets(res.data))
+      .catch(error => console.error(error));
+  }
+  useEffect(updateTimeline, []);
 
   return(
     <Container>
@@ -41,7 +48,7 @@ function Home() {
           </Card>
         </Col>
         <Col md={8}>
-          <TimeLine />
+          <TimeLine tweets={tweets} />
         </Col>
       </Row>
     </Container>
