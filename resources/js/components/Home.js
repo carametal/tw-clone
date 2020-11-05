@@ -28,7 +28,8 @@ function Home() {
               <Form.Control
                 name="tweet"
                 as="textarea"
-                row={10}
+                rows={10}
+                style={{ resize: 'none'}}
                 onChange={(e) => setTweetText(e.target.value)}
               />
               <Button
