@@ -1,16 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Card, Col, Row} from "react-bootstrap";
 
 export default function TimeLine() {
   const [tweets, setTweets] = useState([]);
 
-  getTimeLine();
-
-  function getTimeLine() {
+  useEffect(() => {
     axios.get('timeline')
       .then(res => setTweets(res.data))
       .catch(error => console.error(error));
-  }
+  }, []);
 
   return(
     <>
@@ -18,7 +16,6 @@ export default function TimeLine() {
         <Col>すべてのツイート</Col>
       </Row>
       {tweets.map(t => {
-        console.log(t);
         return(
           <Row key={t.id} style={{ padding: '0.75em 1.25em', border: '1px solid rgba(0, 0, 0, 0.125)', borderTop: 'none' }}>
             <Col>
