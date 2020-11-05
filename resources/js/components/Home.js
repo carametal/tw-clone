@@ -6,13 +6,17 @@ import TimeLine from "./TimeLine";
 
 function Home() {
   const [tweetText, setTweetText] = useState('');
+  const initialTweetText = () => {
+    setTweetText('');
+  }
+
   const handleTweet = () => {
     const params = {
       tweet: tweetText
     };
     axios.post('/tweet', params)
       .then(res => {
-        setTweetText('');
+        initialTweetText();
         updateTimeline();
       })
       .catch(error => console.error(error));
@@ -35,6 +39,7 @@ function Home() {
               <Form.Control
                 name="tweet"
                 as="textarea"
+                value={tweetText}
                 rows={10}
                 style={{ resize: 'none'}}
                 onChange={(e) => setTweetText(e.target.value)}
