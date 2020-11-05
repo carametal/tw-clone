@@ -17,7 +17,6 @@ class UsersController extends Controller
     public function index()
     {
         $users = DB::table('users')->get();
-//        $users = DB::table('users')->where('id', '=', 1)->get();
         return view('users', ['users' => $users]);
     }
 
