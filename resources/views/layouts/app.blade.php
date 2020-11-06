@@ -79,6 +79,10 @@
             </div>
         </nav>
 
+        <script>
+            const _loginUser = <?php echo json_encode(Auth::user()) ?>;
+
+        </script>
         <main class="py-4">
             @yield('content')
         </main>

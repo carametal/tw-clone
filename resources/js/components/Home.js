@@ -4,13 +4,19 @@ import {Button, Card, Col, Container, Form, Row} from 'react-bootstrap';
 import axios from 'axios';
 import TimeLine from "./TimeLine";
 
-function Home() {
+function Home(props) {
   const [tweetText, setTweetText] = useState('');
+
+  const [loginUser, setLoginUser] = useState(_loginUser);
+
   const initialTweetText = () => {
     setTweetText('');
   }
 
   const handleTweet = () => {
+    if(!tweetText) {
+      alert("ツイートが空です");
+    }
     const params = {
       tweet: tweetText
     };
@@ -30,11 +36,25 @@ function Home() {
   }
   useEffect(updateTimeline, []);
 
+  const [tweetsDetail, setTweetsDetail] = useState({});
+  const updateTweetsCount = () => {
+    axios.get('tweets-detail/' + loginUser.id)
+      .then(res => setTweetsDetail(res.data))
+      .catch(error => console.error(error));
+  };
+  useEffect(updateTweetsCount, []);
+
   return(
     <Container>
       <Row className="justify-content-center">
         <Col md={4}>
           <Card>
+            <Card.Body style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.125)"}}>
+              <h3>{ loginUser.name }</h3>
+              ツイート数: { tweetsDetail.count}
+              フォロー: 0
+              フォロワー: 0
+            </Card.Body>
             <Card.Body>
               <Form.Control
                 name="tweet"
@@ -48,6 +68,7 @@ function Home() {
                 variant="primary"
                 style={{ margin: "7px 0", width: "100%"}}
                 onClick={(e) => handleTweet(e)}
+                disabled={!tweetText}
               >ツイート</Button>
             </Card.Body>
           </Card>
