@@ -20,7 +20,9 @@ class UsersDetailController extends Controller
            ->where('user_id', $id)
            ->count('*');
        $result = [
-           'count' => $userDetail
+           'count' => $userDetail,
+           'follow' => 0,
+           'follower' => 0
        ];
        return json_encode($result);
     }
