@@ -21,8 +21,8 @@ class UsersDetailController extends Controller
            ->count('*');
        $result = [
            'count' => $userDetail,
-           'follow' => 0,
-           'follower' => 0
+           'follows' => 0,
+           'followers' => 0
        ];
        return json_encode($result);
     }
