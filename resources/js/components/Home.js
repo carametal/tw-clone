@@ -36,10 +36,10 @@ function Home(props) {
   }
   useEffect(updateTimeline, []);
 
-  const [tweetsDetail, setTweetsDetail] = useState({});
+  const [usersDetail, setUsersDetail] = useState({ count: 0, follows: 0, followers: 0});
   const updateTweetsCount = () => {
     axios.get('tweets-detail/' + loginUser.id)
-      .then(res => setTweetsDetail(res.data))
+      .then(res => setUsersDetail(res.data))
       .catch(error => console.error(error));
   };
   useEffect(updateTweetsCount, []);
@@ -51,9 +51,9 @@ function Home(props) {
           <Card>
             <Card.Body style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.125)"}}>
               <h3>{ loginUser.name }</h3>
-              ツイート数: { tweetsDetail.count}
-              フォロー: 0
-              フォロワー: 0
+              <div>ツイート数: { usersDetail.count}</div>
+              <div>フォロー: { usersDetail.follows}</div>
+              <div>フォロワー: { usersDetail.followers}</div>
             </Card.Body>
             <Card.Body>
               <Form.Control

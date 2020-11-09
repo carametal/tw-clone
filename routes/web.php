@@ -29,4 +29,4 @@ route::match(['post'], '/tweet', [App\Http\Controllers\TweetController::class, '
 
 route::match(['get'], '/timeline', [App\Http\Controllers\TweetController::class, 'timeline'])->name('timeline');
 
-route::match(['get'], '/tweets-detail/{id}', [App\Http\Controllers\TweetsDetailController::class, 'get'])->name('tweets-detail');
+route::match(['get'], '/tweets-detail/{id}', [App\Http\Controllers\UsersDetailController::class, 'get'])->name('tweets-detail');

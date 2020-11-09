@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 
-class TweetsDetailController extends Controller
+class UsersDetailController extends Controller
 {
     public function __construct()
     {
