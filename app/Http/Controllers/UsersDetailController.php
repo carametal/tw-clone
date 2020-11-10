@@ -15,14 +15,19 @@ class UsersDetailController extends Controller
 
     public function get(int $id)
     {
-       $userDetail = DB::table('tweets')
-           ->groupBy('user_id')
+       $count = DB::table('tweets')
            ->where('user_id', $id)
            ->count('*');
+       $follows = DB::table('follows')
+           ->where('user_id', $id)
+           ->count('*');
+       $followers = DB::table('follows')
+           ->where('follow_user_id', $id)
+           ->count('*');
        $result = [
-           'count' => $userDetail,
-           'follows' => 0,
-           'followers' => 0
+           'count' => $count,
+           'follows' => $follows,
+           'followers' => $followers
        ];
        return json_encode($result);
     }

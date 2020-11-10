@@ -21,11 +21,18 @@ class TweetController extends Controller
         }
     }
 
-    public function timeline()
+    public function timeline(int $id)
     {
+        $follows = DB::table('follows')
+            ->select('*')
+            ->where('user_id', $id);
+
         $tweet = DB::table('tweets')
+            ->select(DB::raw('tweets.*, users.name, follows.follow_user_id is not null as is_follows'))
             ->join('users', 'tweets.user_id', 'users.id')
-            ->select('tweets.*', 'users.name')
+            ->leftJoinSub($follows, 'follows', function ($join) {
+                $join->on('tweets.user_id', '=', 'follows.follow_user_id');
+            })
             ->latest()
             ->get();
         return json_encode($tweet);

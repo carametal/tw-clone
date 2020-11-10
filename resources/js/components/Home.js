@@ -30,7 +30,7 @@ function Home(props) {
 
   const [tweets, setTweets] = useState([]);
   const updateTimeline = () => {
-    axios.get('timeline')
+    axios.get('timeline/' + _loginUser.id)
       .then(res => setTweets(res.data))
       .catch(error => console.error(error));
   }
