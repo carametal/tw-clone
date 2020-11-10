@@ -29,8 +29,8 @@ function Home(props) {
   }
 
   const [tweets, setTweets] = useState([]);
-  const updateTimeline = () => {
-    axios.get('timeline/' + _loginUser.id)
+  const updateTimeline = (type= 'all') => {
+    axios.get('timeline/' + _loginUser.id + '?type=' + type)
       .then(res => setTweets(res.data))
       .catch(error => console.error(error));
   }
@@ -51,7 +51,7 @@ function Home(props) {
           <Card>
             <Card.Body style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.125)"}}>
               <h3>{ loginUser.name }</h3>
-              <div>ツイート数: { usersDetail.count}</div>
+              <div> ツイート数: { usersDetail.count}</div>
               <div>フォロー: { usersDetail.follows}</div>
               <div>フォロワー: { usersDetail.followers}</div>
             </Card.Body>
@@ -74,7 +74,10 @@ function Home(props) {
           </Card>
         </Col>
         <Col md={8}>
-          <TimeLine tweets={tweets} />
+          <TimeLine
+            tweets={tweets}
+            updateTiimeLine={updateTimeline}
+          />
         </Col>
       </Row>
     </Container>

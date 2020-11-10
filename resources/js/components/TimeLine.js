@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Card, Col, Row} from "react-bootstrap";
+import {Button, ButtonGroup, Card, Col, Nav, Row, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
 
 export default function TimeLine(props) {
+  const [selectedTweetsMode, setSelectedTweetsMode] = useState('all');
   const handleFollowClick = (followUserId) => {
     const params = {
       followUserId: followUserId,
@@ -10,10 +11,19 @@ export default function TimeLine(props) {
       .then()
       .catch();
   };
+  const handleTweetsModeChange = (type) => {
+    props.updateTiimeLine(type);
+  };
+
   return(
     <>
       <Row style={{ padding: '0.75em 1.25em', border: '1px solid rgba(0, 0, 0, 0.125)', backgroundColor: 'rgba(0, 0, 0, 0.03)' }}>
-        <Col>すべてのツイート</Col>
+        <Col>
+          <ToggleButtonGroup type="radio" name="mode_options" defaultValue={selectedTweetsMode} onChange={handleTweetsModeChange}>
+            <ToggleButton value={'all'}>すべてのツイート</ToggleButton>
+            <ToggleButton value={'follow'}>フォローしているツイート</ToggleButton>
+          </ToggleButtonGroup>
+        </Col>
       </Row>
       {props.tweets.map(t => {
         return(
