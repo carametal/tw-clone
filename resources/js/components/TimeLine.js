@@ -32,7 +32,7 @@ export default function TimeLine(props) {
               <h3>{t.name}</h3>
               <div>{t.tweet}</div>
               <div style={{paddingTop: '5px'}}>
-                <Button size="sm" style={{ marginRight: '5px'}}>お気に入り</Button>
+                <Button size="sm" style={{ marginRight: '5px'}}>お気に入りに登録</Button>
                 {(t.user_id !== _loginUser.id) && !t.is_follows &&
                   <Button
                     size="sm"
