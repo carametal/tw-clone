@@ -19,12 +19,11 @@ class FollowsController extends Controller
         $follows = new Follows();
         if($_SERVER['REQUEST_METHOD'] === 'POST')
         {
-            $follows->create($request);
+            return json_encode(['follow' => $follows->create($request)]);
         }
         else if($_SERVER['REQUEST_METHOD'] === 'DELETE')
         {
             $follows->delete($request);
-
         }
     }
 

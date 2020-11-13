@@ -44,6 +44,26 @@ function Home(props) {
   };
   useEffect(updateTweetsCount, []);
 
+  const doFollow = (tweet, follow) => {
+    const newTweets = tweets.map(t => {
+      if(t.user_id === tweet.user_id) {
+        t.follow_id = follow.id;
+      }
+      return t;
+    });
+    setTweets(newTweets);
+  }
+
+  const removeFollow = (tweet) => {
+    const newTweets = tweets.map(t => {
+      if(t.user_id === tweet.user_id) {
+        t.follow_id = null;
+      }
+      return t;
+    });
+    setTweets(newTweets);
+  };
+
   return(
     <Container>
       <Row className="justify-content-center">
@@ -77,6 +97,8 @@ function Home(props) {
           <TimeLine
             tweets={tweets}
             updateTiimeLine={updateTimeline}
+            doFollow={doFollow}
+            removeFollow={removeFollow}
           />
         </Col>
       </Row>

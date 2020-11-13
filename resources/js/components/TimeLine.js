@@ -3,12 +3,26 @@ import {Button, ButtonGroup, Card, Col, Nav, Row, ToggleButton, ToggleButtonGrou
 
 export default function TimeLine(props) {
   const [selectedTweetsMode, setSelectedTweetsMode] = useState('all');
-  const handleFollowClick = (followUserId) => {
+  const handleFollowClick = (tweet) => {
     const params = {
-      followUserId: followUserId,
+      followUserId: tweet.user_id,
     }
     axios.post('follows', params)
-      .then()
+      .then(res => {
+        props.doFollow(tweet, res.data.follow);
+      })
+      .catch();
+  };
+  const handleRemoveClick = (tweet) => {
+    const params = {
+      followId: tweet.follow_id,
+    };
+    axios.delete('follows', {
+      data: params
+    })
+      .then(() => {
+        props.removeFollow(tweet);
+      })
       .catch();
   };
   const handleTweetsModeChange = (type) => {
@@ -33,11 +47,17 @@ export default function TimeLine(props) {
               <div>{t.tweet}</div>
               <div style={{paddingTop: '5px'}}>
                 <Button size="sm" style={{ marginRight: '5px'}}>お気に入りに登録</Button>
-                {(t.user_id !== _loginUser.id) && !t.is_follows &&
+                {(t.user_id !== _loginUser.id) && t.follow_id == null &&
                   <Button
                     size="sm"
-                    onClick={() => handleFollowClick(t.user_id)}
+                    onClick={() => handleFollowClick(t)}
                   >フォローする</Button>
+                }
+                {(t.user_id !== _loginUser.id) && t.follow_id != null &&
+                  <Button
+                    size="sm"
+                    onClick={() => handleRemoveClick(t)}
+                  >フォロー解除する</Button>
                 }
               </div>
             </Col>

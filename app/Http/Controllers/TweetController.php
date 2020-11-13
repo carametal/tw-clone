@@ -28,7 +28,7 @@ class TweetController extends Controller
             ->where('user_id', $id);
 
         $query = DB::table('tweets')
-            ->select(DB::raw('tweets.*, users.name, follows.follow_user_id is not null as is_follows'))
+            ->select(DB::raw('tweets.*, users.name, follows.id as follow_id'))
             ->join('users', 'tweets.user_id', 'users.id')
             ->leftJoinSub($follow_sub, 'follows', function ($join) {
                 $join->on('tweets.user_id', '=', 'follows.follow_user_id');

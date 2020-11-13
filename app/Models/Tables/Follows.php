@@ -19,6 +19,7 @@ class Follows
             $follow->user_id = Auth::user()->id;
             $follow->follow_user_id = (int)$request->followUserId;
             $follow->save();
+            return $follow;
         } catch (Exception $e) {
             throw $e;
         }
@@ -27,11 +28,9 @@ class Follows
     public function delete(Request $request)
     {
         try {
+            echo var_dump($request);
             DB::table('follows')
-                ->whereColumn([
-                    ['user_id', Auth::user()->id],
-                    ['follow_user_id', $request->followUserId]
-                ])
+                ->Where('id', '=', $request->followId)
                 ->delete();
         } catch (Exception $e){
             throw $e;
