@@ -25,6 +25,28 @@ export default function TimeLine(props) {
       })
       .catch();
   };
+  const handleFavoriteClick = (tweet) => {
+    const params = {
+      tweetId: tweet.id,
+      userId: _loginUser.id,
+    }
+    axios.post('favorites', params)
+      .then(res => {
+        props.doFavorite(tweet, res.data.favorite);
+      })
+      .catch();
+  };
+
+  const handleRemoveFavoriteClick = (tweet) => {
+    axios.delete('favorites/' + tweet.favorite_id)
+      .then(res => {
+        props.removeFavorite(tweet);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+  };
   const handleTweetsModeChange = (type) => {
     props.updateTiimeLine(type);
   };
@@ -46,7 +68,21 @@ export default function TimeLine(props) {
               <h3>{t.name}</h3>
               <div>{t.tweet}</div>
               <div style={{paddingTop: '5px'}}>
-                <Button size="sm" style={{ marginRight: '5px'}}>お気に入りに登録</Button>
+                {(t.user_id !== _loginUser.id) && t.favorite_id == null &&
+                  <Button
+                    size="sm"
+                    style={{ marginRight: '5px'}}
+                    onClick={() => handleFavoriteClick(t)}
+                  >お気に入りに登録する</Button>
+                }
+                {(t.user_id !== _loginUser.id) && t.favorite_id != null &&
+                  <Button
+                    size="sm"
+                    variant="outline-danger"
+                    style={{ marginRight: '5px'}}
+                    onClick={() => handleRemoveFavoriteClick(t)}
+                  >お気に入りを解除する</Button>
+                }
                 {(t.user_id !== _loginUser.id) && t.follow_id == null &&
                   <Button
                     size="sm"
@@ -56,6 +92,7 @@ export default function TimeLine(props) {
                 {(t.user_id !== _loginUser.id) && t.follow_id != null &&
                   <Button
                     size="sm"
+                    variant="outline-danger"
                     onClick={() => handleRemoveClick(t)}
                   >フォロー解除する</Button>
                 }

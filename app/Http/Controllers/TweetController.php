@@ -26,12 +26,18 @@ class TweetController extends Controller
         $follow_sub = DB::table('follows')
             ->select('*')
             ->where('user_id', $id);
+        $favorite_sub = DB::table('favorites')
+            ->select('*')
+            ->where('user_id', $id);
 
         $query = DB::table('tweets')
-            ->select(DB::raw('tweets.*, users.name, follows.id as follow_id'))
+            ->select(DB::raw('tweets.*, users.name, follows.id as follow_id, favorites.id as favorite_id'))
             ->join('users', 'tweets.user_id', 'users.id')
             ->leftJoinSub($follow_sub, 'follows', function ($join) {
                 $join->on('tweets.user_id', '=', 'follows.follow_user_id');
+            })
+            ->leftJoinSub($favorite_sub, 'favorites', function ($join) {
+                $join->on('tweets.id', '=', 'favorites.favorite_tweet_id');
             });
 
         if($request->query('type') === 'follow')

@@ -64,6 +64,24 @@ function Home(props) {
     setTweets(newTweets);
   };
 
+  const doFavorite = (tweet, favorite) => {
+    const copiedTweets = Object.assign([], tweets);
+    const tweetIndex = copiedTweets.findIndex(t => {
+      return t.id === tweet.id;
+    });
+    copiedTweets[tweetIndex].favorite_id = favorite.id;
+    setTweets(copiedTweets);
+  };
+
+  const removeFavorite = (tweet) => {
+    const copiedTweets = Object.assign([], tweets);
+    const tweetIndex = copiedTweets.findIndex(t => {
+      return t.id === tweet.id;
+    });
+    copiedTweets[tweetIndex].favorite_id = null;
+    setTweets(copiedTweets);
+  };
+
   return(
     <Container>
       <Row className="justify-content-center">
@@ -99,6 +117,8 @@ function Home(props) {
             updateTiimeLine={updateTimeline}
             doFollow={doFollow}
             removeFollow={removeFollow}
+            doFavorite={doFavorite}
+            removeFavorite={removeFavorite}
           />
         </Col>
       </Row>
