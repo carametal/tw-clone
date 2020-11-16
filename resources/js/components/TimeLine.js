@@ -58,6 +58,7 @@ export default function TimeLine(props) {
           <ToggleButtonGroup type="radio" name="mode_options" defaultValue={selectedTweetsMode} onChange={handleTweetsModeChange}>
             <ToggleButton value={'all'}>すべてのツイート</ToggleButton>
             <ToggleButton value={'follow'}>フォローしているツイート</ToggleButton>
+            <ToggleButton value={'favorite'}>お気に入りしているツイート</ToggleButton>
           </ToggleButtonGroup>
         </Col>
       </Row>

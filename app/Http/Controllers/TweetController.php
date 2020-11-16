@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\DB;
 
 class TweetController extends Controller
 {
+    const REQUEST_KEY_TYPE = 'type';
+    const TIMELINE_TYPE_FOLLOW = 'follow';
+    const TIMELINE_TYPE_FAVORITE = 'favorite';
     public function tweet(Request $request)
     {
         if ($_SERVER["REQUEST_METHOD"] === 'POST')
@@ -40,7 +43,7 @@ class TweetController extends Controller
                 $join->on('tweets.id', '=', 'favorites.favorite_tweet_id');
             });
 
-        if($request->query('type') === 'follow')
+        if($request->query(self::REQUEST_KEY_TYPE) === self::TIMELINE_TYPE_FOLLOW)
         {
             $follows = DB::table('follows')
                 ->select('follow_user_id')
@@ -50,11 +53,22 @@ class TweetController extends Controller
             {
                 return $item->follow_user_id;
             });
-            $query = $query->whereIn('tweets.user_id', $array_follow_user_id)
-                ->orWhere('tweets.user_id', '=', $id);
+            $query = $query->whereIn('tweets.user_id', $array_follow_user_id);
+        }
+        else if($request->query(self::REQUEST_KEY_TYPE) === self::TIMELINE_TYPE_FAVORITE)
+        {
+            $favorite = DB::table('favorites')
+                ->select('favorite_tweet_id')
+                ->where('user_id', '=', $id)
+                ->get();
+            $array_favorite_tweets_id = $favorite->map(function($item)
+            {
+                return $item->favorite_tweet_id;
+            });
+            $query = $query->whereIn('tweets.id', $array_favorite_tweets_id);
         }
 
-         $tweet = $query
+        $tweet = $query
             ->latest()
             ->get();
         return json_encode($tweet);
