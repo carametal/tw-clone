@@ -64,7 +64,7 @@ export default function TimeLine(props) {
       </Row>
       {props.tweets.map(t => {
         return(
-          <Row key={t.id} style={{ padding: '0.75em 1.25em', border: '1px solid rgba(0, 0, 0, 0.125)', borderTop: 'none' }}>
+          <Row key={t.id} style={{ padding: '0.75em 1.25em', border: '1px solid rgba(0, 0, 0, 0.125)', borderTop: 'none', backgroundColor: 'white' }}>
             <Col>
               <h3>{t.name}</h3>
               <div>{t.tweet}</div>
