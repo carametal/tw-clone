@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  php:
+    image: 321624284913.dkr.ecr.ap-northeast-1.amazonaws.com/tw-clone-php:latest
+    ports:
+      - 80:80
+    container_name: tw-clone-php
+
+  mysql:
+    image: 321624284913.dkr.ecr.ap-northeast-1.amazonaws.com/tw-clone-php
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=tw_clone
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+    container_name: tw-clone-mysql
+

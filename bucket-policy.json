@@ -1,0 +1,29 @@
+{
+  "Statement": [
+      {
+          "Action": [
+              "s3:PutObject"
+          ],
+          "Effect": "Allow",
+          "Resource": "arn:aws:s3:::tw-clone/*",
+          "Principal": {
+              "AWS": [
+                  "321624284913"
+              ]
+          }
+      },
+      {
+        "Action": [
+            "s3:Get*",
+            "s3:List*"
+        ],
+        "Effect": "Allow",
+        "Resource": "arn:aws:s3:::tw-clone/*",
+        "Principal": {
+            "AWS": [
+                "arn:aws:iam::321624284913:role/TwCloneEc2Role"
+            ]
+        }
+    }
+  ]
+}
