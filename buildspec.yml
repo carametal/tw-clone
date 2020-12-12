@@ -13,6 +13,9 @@ phases:
 
           yum install -y git
           yum install -y zip unzip
+      - yum install nodejs -y
+      - npm install
+      - npm run prodaction
   build:
     commands:
       - cd src/
