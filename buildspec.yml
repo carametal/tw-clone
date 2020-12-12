@@ -13,13 +13,14 @@ phases:
 
           yum install -y git
           yum install -y zip unzip
-      - yum install nodejs -y
-      - npm install
+      - curl -sL https://rpm.nodesource.com/setup_12.x | sudo bash -
+      - sudo yum install --enablerepo=nodesource nodejs
   build:
     commands:
       - cd src/
       - rm -rf .git .gitignore README.md
       - composer install
+      - npm install
       - npm run production
 
 artifacts:
