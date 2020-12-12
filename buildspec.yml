@@ -13,9 +13,10 @@ phases:
 
           yum install -y git
           yum install -y zip unzip
-      - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
-      - . ~/.nvm/nvm.sh
-      - nvm install --lts
+      - |
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+        . ~/.nvm/nvm.sh
+        nvm install --lts
   build:
     commands:
       - cd src/
