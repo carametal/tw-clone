@@ -15,12 +15,12 @@ phases:
           yum install -y zip unzip
       - yum install nodejs -y
       - npm install
-      - npm run prodaction
   build:
     commands:
       - cd src/
       - rm -rf .git .gitignore README.md
       - composer install
+      - npm run production
 
 artifacts:
   files:
