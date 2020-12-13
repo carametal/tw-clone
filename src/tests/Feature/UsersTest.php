@@ -38,10 +38,4 @@ class UsersTest extends TestCase
         $this->assertEquals(Auth::user()->email, $this->email);
         $this->assertEquals(Auth::user()->bio, $this->bio);
     }
-
-    public function testTemp()
-    {
-        $response = $this->get(route('hello-world', ['name' => 'Carametal']));
-        echo var_dump($response);
-    }
 }
