@@ -24,6 +24,10 @@ phases:
       - composer install
       - npm install
       - npm run production
+  post_build:
+    commands:
+      - cd src/
+      - php artisan test
 
 artifacts:
   files:
