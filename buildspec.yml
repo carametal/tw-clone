@@ -26,7 +26,7 @@ phases:
       - npm run production
   post_build:
     commands:
-      - .vendor/bin/phpunit
+      - ./vendor/bin/phpunit
 
 artifacts:
   files:
