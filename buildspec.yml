@@ -26,8 +26,7 @@ phases:
       - npm run production
   post_build:
     commands:
-      - php artisan key:generate
-      - php artisan test
+      - .vendor/bin/phpunit
 
 artifacts:
   files:
