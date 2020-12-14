@@ -93,7 +93,7 @@ return [
 
         'testing' => [
             'driver' => 'sqlite',
-            'database' => ':memory',
+            'database' => ':memory:',
             'prefix' => '',
             'options' => [
                 PDO::ATTR_PERSISTENT => false,
