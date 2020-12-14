@@ -8,7 +8,6 @@ use App\Models\Follow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Tests\Unit\ExampleTest;
 
 class Follows
 {
@@ -25,12 +24,11 @@ class Follows
         }
     }
 
-    public function delete(Request $request)
+    public function delete($id)
     {
         try {
-            echo var_dump($request);
             DB::table('follows')
-                ->Where('id', '=', $request->followId)
+                ->Where('id', '=', $id)
                 ->delete();
         } catch (Exception $e){
             throw $e;

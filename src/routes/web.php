@@ -35,7 +35,7 @@ route::match(['get'], '/timeline/{id}', [App\Http\Controllers\TweetController::c
 
 route::match(['get'], '/tweets-detail/{id}', [App\Http\Controllers\UsersDetailController::class, 'get'])->name('tweets-detail');
 
-route::match(['post', 'delete'], '/follows', [App\Http\Controllers\FollowsController::class, 'follow'])->name('follow');
+route::resource('follows', App\Http\Controllers\FollowsController::class)->only(['store', 'destroy']);
 
 route::resource('favorites', App\Http\Controllers\FavoritesController::class)->only(['store', 'destroy']);
 

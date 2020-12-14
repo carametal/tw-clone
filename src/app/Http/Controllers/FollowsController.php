@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Http\Controllers;
-
 
 use App\Models\Tables\Follows;
 use Illuminate\Http\Request;
@@ -14,17 +12,15 @@ class FollowsController extends Controller
         $this->middleware('auth');
     }
 
-    public function follow(Request  $request)
+    public function store(Request $request)
     {
         $follows = new Follows();
-        if($_SERVER['REQUEST_METHOD'] === 'POST')
-        {
-            return json_encode(['follow' => $follows->create($request)]);
-        }
-        else if($_SERVER['REQUEST_METHOD'] === 'DELETE')
-        {
-            $follows->delete($request);
-        }
+        return json_encode(['follow' => $follows->create($request)]);
     }
 
+    public function destroy($id)
+    {
+        $follows = new Follows();
+        $follows->delete($id);
+    }
 }

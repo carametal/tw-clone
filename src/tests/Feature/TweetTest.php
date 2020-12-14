@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use App\Models\Tables\Tweets;
-use App\Models\Tweet;
 use App\Models\User;
 use Tests\TestCase;
 

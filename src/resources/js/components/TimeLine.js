@@ -17,7 +17,7 @@ export default function TimeLine(props) {
     const params = {
       followId: tweet.follow_id,
     };
-    axios.delete('follows', {
+    axios.delete('follows/' + tweet.follow_id, {
       data: params
     })
       .then(() => {
