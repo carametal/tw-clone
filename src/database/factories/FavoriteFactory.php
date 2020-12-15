@@ -2,18 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Tweet;
+use App\Models\Favorite;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class TweetFactory extends Factory
+class FavoriteFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Tweet::class;
+    protected $model = Favorite::class;
 
     /**
      * Define the model's default state.
@@ -24,7 +23,7 @@ class TweetFactory extends Factory
     {
         return [
             'user_id' => $this->faker->randomDigitNotNull(),
-            'tweet' => $this->faker->realText,
+            'follow_user_id' => $this->faker->randomDigitNotNull()
         ];
     }
 }
