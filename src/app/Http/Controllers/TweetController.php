@@ -11,8 +11,10 @@ use Illuminate\Support\Facades\DB;
 class TweetController extends Controller
 {
     const REQUEST_KEY_TYPE = 'type';
+    const TIMELINE_TYPE_ALL = 'all';
     const TIMELINE_TYPE_FOLLOW = 'follow';
     const TIMELINE_TYPE_FAVORITE = 'favorite';
+
     public function tweet(Request $request)
     {
         if ($_SERVER["REQUEST_METHOD"] === 'POST')
