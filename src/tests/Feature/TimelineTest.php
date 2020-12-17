@@ -2,14 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Models\Favorite;
 use DateTime;
 use App\Models\Tweet;
 use App\Models\User;
 use DateInterval;
-use Tests\TestCase;
 
-abstract class TimelineTest extends TestCase
+abstract class TimelineTest extends TestCaseNeedsLogin
 {
     protected $user;
     protected $user2;
@@ -20,15 +18,8 @@ abstract class TimelineTest extends TestCase
 
     public function setUp(): void
     {
-        parent::setup();
-        $this->user = User::factory()->create([
-            'password' => bcrypt($this->password)
-        ]);
+        parent::setUp();
         $this->user2 = User::factory()->create();
-        $this->post(route('login'), [
-            'email' => $this->user->email,
-            'password' => $this->password,
-        ]);
         $dateTime = new DateTime();
         $this->tweets[] = Tweet::factory()->create([
             'user_id' => $this->user->id,

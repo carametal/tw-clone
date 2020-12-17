@@ -6,9 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use App\Models\Tables\Tweets;
 use App\Models\User;
-use Tests\TestCase;
 
-class TweetTest extends TestCase
+class TweetTest extends TestCaseNeedsLogin
 {
     use RefreshDatabase;
 
