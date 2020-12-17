@@ -5,20 +5,21 @@ namespace Tests\Feature;
 use App\Http\Controllers\TweetController;
 use App\Models\Favorite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 
 class TimelineFavoritesTest extends TimelineTest
 {
     use RefreshDatabase;
 
+    const NUM_OF_FAVORITE_TWEETS = 2;
+
     public function setUp(): void
     {
         parent::setup();
-        for ($i=0; $i < parent::NUM_OF_FAVORITE_TWEETS; $i++) {
+        for ($i=0; $i < self::NUM_OF_FAVORITE_TWEETS; $i++) {
+            $index = $i + 1;
             Favorite::factory()->create([
                 'user_id' => $this->user->id,
-                'favorite_tweet_id' => $this->tweet[$i]->id
+                'favorite_tweet_id' => $this->tweets[$index]->id
             ]);
         }
     }
@@ -30,8 +31,8 @@ class TimelineFavoritesTest extends TimelineTest
         $response->assertStatus(200);
         $json = $response->json();
         foreach ($json as $i => $value) {
-            $index = (self::NUM_OF_FAVORITE_TWEETS -1) - $i;
-            $this->assertEquals((int)$this->tweet[$index]['id'], $value['id']);
+            $index = self::NUM_OF_FAVORITE_TWEETS - $i;
+            $this->assertEquals((int)$this->tweets[$index]['id'], $value['id']);
         }
     }
 }
