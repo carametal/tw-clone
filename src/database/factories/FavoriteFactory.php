@@ -23,7 +23,7 @@ class FavoriteFactory extends Factory
     {
         return [
             'user_id' => $this->faker->randomDigitNotNull(),
-            'follow_user_id' => $this->faker->randomDigitNotNull()
+            'favorite_tweet_id' => $this->faker->randomDigitNotNull()
         ];
     }
 }
