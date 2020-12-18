@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Http\Controllers\TweetController;
 use App\Models\Favorite;
+use App\Models\Timeline\Timeline;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TimelineFavoritesTest extends TimelineTest
@@ -26,7 +26,7 @@ class TimelineFavoritesTest extends TimelineTest
 
     public function testTimelineHasFavoriteTweets()
     {
-        $query = '?' . TweetController::REQUEST_KEY_TYPE . '=' . TweetController::TIMELINE_TYPE_FAVORITE;
+        $query = '?' . Timeline::REQUEST_KEY_TYPE . '=' . Timeline::TIMELINE_TYPE_FAVORITE;
         $response = $this->get('timeline/' . $this->user->id . $query);
         $response->assertStatus(200);
         $json = $response->json();

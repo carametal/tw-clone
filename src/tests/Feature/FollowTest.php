@@ -44,7 +44,7 @@ class FollowTest extends TestCase
     public function testRemove()
     {
         $follow = Follow::factory()->create();
-        $resposne = $this->delete("follows/$follow->id");
+        $resposne = $this->delete("follows/{$follow->id}");
         $resposne->assertStatus(200);
         $this->assertDatabaseMissing('follows', [
             'id' => $follow->id

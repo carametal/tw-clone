@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Http\Controllers\TweetController;
+use App\Models\Timeline\Timeline;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TimelineAllTest extends TimelineTest
@@ -18,7 +18,7 @@ class TimelineAllTest extends TimelineTest
 
     public function testTimelineHasAllTweets()
     {
-        $query = '?' . TweetController::REQUEST_KEY_TYPE . '=' . TweetController::TIMELINE_TYPE_ALL;
+        $query = '?' . Timeline::REQUEST_KEY_TYPE . '=' . Timeline::TIMELINE_TYPE_ALL;
         $response = $this->get('timeline/' . $this->user->id . $query);
         $response->assertStatus(200);
         $json = $response->json();

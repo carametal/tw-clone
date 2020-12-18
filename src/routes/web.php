@@ -31,7 +31,7 @@ Route::match(['get', 'post'],'/user/{id}', [App\Http\Controllers\UsersController
 
 route::match(['post'], '/tweet', [App\Http\Controllers\TweetController::class, 'tweet'])->name('tweet');
 
-route::match(['get'], '/timeline/{id}', [App\Http\Controllers\TweetController::class, 'timeline'])->name('timeline');
+route::resource('timeline', App\Http\Controllers\TimelineController::class)->only(['show']);
 
 route::match(['get'], '/tweets-detail/{id}', [App\Http\Controllers\UsersDetailController::class, 'get'])->name('tweets-detail');
 

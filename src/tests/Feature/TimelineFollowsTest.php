@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Http\Controllers\TweetController;
 use App\Models\Follow;
+use App\Models\Timeline\Timeline;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TimelineFollowsTest extends TimelineTest
@@ -23,7 +23,7 @@ class TimelineFollowsTest extends TimelineTest
 
     public function testTimelineHasFollowedTweets()
     {
-        $query = '?' . TweetController::REQUEST_KEY_TYPE . '=' . TweetController::TIMELINE_TYPE_FOLLOW;
+        $query = '?' . Timeline::REQUEST_KEY_TYPE . '=' . Timeline::TIMELINE_TYPE_FOLLOW;
         $response = $this->get('timeline/' . $this->user->id . $query);
         $response->assertStatus(200);
         $json = $response->json();
