@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use App\Models\Tables\Tweets;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class TweetTest extends TestCaseNeedsLogin
 {
@@ -29,10 +30,12 @@ class TweetTest extends TestCaseNeedsLogin
     public function testTweet()
     {
         $tweet = 'testTweetContent';
-        $request = new Request();
-        $request->tweet = $tweet;
-        $tweets = new Tweets();
-        $tweets->insert($request);
+        $request = [
+            'tweet' => $tweet,
+            'userId' => Auth::user()->id
+        ];
+        $response = $this->post('tweets', $request);
+        $response->assertStatus(200);
         $this->assertDatabaseHas('tweets', [
             'tweet' => $tweet
         ]);

@@ -29,7 +29,7 @@ Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])->na
 
 Route::match(['get', 'post'],'/user/{id}', [App\Http\Controllers\UsersController::class, 'user'])->name('user');
 
-route::match(['post'], '/tweet', [App\Http\Controllers\TweetController::class, 'tweet'])->name('tweet');
+Route::resource('tweets', App\Http\Controllers\TweetController::class)->only(['store']);
 
 route::resource('timeline', App\Http\Controllers\TimelineController::class)->only(['show']);
 

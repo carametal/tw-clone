@@ -18,9 +18,10 @@ function Home(props) {
       alert("ツイートが空です");
     }
     const params = {
-      tweet: tweetText
+      tweet: tweetText,
+      userId: loginUser.id
     };
-    axios.post('/tweet', params)
+    axios.post('/tweets', params)
       .then(res => {
         initialTweetText();
         updateTimeline();
