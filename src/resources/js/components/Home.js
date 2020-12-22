@@ -83,6 +83,13 @@ function Home(props) {
     setTweets(copiedTweets);
   };
 
+  const removeTweet = (tweet) => {
+    const newTweets = tweets.filter(t => {
+      return tweet !== t;
+    });
+    setTweets(newTweets);
+  };
+
   return(
     <Container>
       <Row className="justify-content-center">
@@ -120,6 +127,7 @@ function Home(props) {
             removeFollow={removeFollow}
             doFavorite={doFavorite}
             removeFavorite={removeFavorite}
+            removeTweet={removeTweet}
           />
         </Col>
       </Row>
