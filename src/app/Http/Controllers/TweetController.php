@@ -23,4 +23,16 @@ class TweetController extends Controller
             throw $th;
         }
     }
+
+    public function destroy(int $id)
+    {
+        try
+        {
+            Tweet::find($id)->delete();
+        }
+        catch (Throwable $th)
+        {
+            throw $th;
+        }
+    }
 }
