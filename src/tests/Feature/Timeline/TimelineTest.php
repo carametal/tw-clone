@@ -1,11 +1,12 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Timeline;
 
 use DateTime;
 use App\Models\Tweet;
 use App\Models\User;
 use DateInterval;
+use Tests\Feature\TestCaseNeedsLogin;
 
 abstract class TimelineTest extends TestCaseNeedsLogin
 {

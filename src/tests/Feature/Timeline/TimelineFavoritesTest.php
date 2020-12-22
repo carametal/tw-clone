@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Timeline;
 
 use App\Models\Favorite;
 use App\Models\Timeline\Timeline;
