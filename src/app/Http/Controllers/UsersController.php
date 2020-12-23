@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tables\Users;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Throwable;
 
 class UsersController extends Controller
 {
@@ -16,19 +17,44 @@ class UsersController extends Controller
         return view('users', ['users' => $users]);
     }
 
-    public function user($id)
+    public function show($id)
     {
-        if(Auth::user()->id !== (int) $id)
-        {
+        $user = User::find($id);
+        if($user === null) {
             return abort(404);
         }
-        $updated = false;
-        if ($_SERVER["REQUEST_METHOD"] === 'POST')
+        return view('user', [
+            'id' => $id,
+            'user' => $user,
+            'authenticated_user_id' => Auth::user()->id,
+            'updated' => false
+        ]);
+    }
+
+    public function update(int $id, Request $request)
+    {
+        try
         {
-            $user = new Users();
-            $user->update($_POST['name'], $_POST['email'], $_POST['bio']);
-            $updated = true;
+            $user = User::find($id);
+            if($user === null)
+            {
+                return abort(404);
+            }
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->bio = $request->bio;
+            $user->save();
+            $params = [
+                'id' => $id,
+                'user' => $user,
+                'authenticated_user_id' => Auth::user()->id,
+                'updated' => true
+            ];
+            return json_encode($params);
         }
-        return view('user', ['id' => $id, 'user' => Auth::user(), 'updated' => $updated]);
+        catch (Throwable $th)
+        {
+            throw $th;
+        }
     }
 }
