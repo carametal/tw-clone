@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
+import UserDetail from './UserDetail';
 import UserDetailEditor from './UserDetailEditor';
 
 function UserHome(props) {
@@ -31,6 +32,11 @@ function UserHome(props) {
           user={user}
           handleChangeUser={handleChangeUser}
           handleSave={handleSave}
+        />
+      }
+      {user.id !== _params.authenticatedUserId &&
+        <UserDetail
+          user={user}
         />
       }
     </>

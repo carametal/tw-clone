@@ -12,7 +12,7 @@ export default function Tweet(props) {
             <Button
               size="sm"
               style={{ marginRight: '5px'}}
-              onClick={() => handleFavorite(props.tweet)}
+              onClick={() => props.handleFavorite(props.tweet)}
             >お気に入りに登録する</Button>
           }
           {(props.tweet.user_id !== _loginUser.id) && props.tweet.favorite_id != null &&
