@@ -1,7 +1,7 @@
 import Axios from 'axios';
-import React, {useEffect, useState} from 'react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
+import UserDetailEditor from './UserDetailEditor';
 
 function UserHome(props) {
   const [user, setUser] = useState(_params.user);
@@ -26,65 +26,13 @@ function UserHome(props) {
   };
   return (
     <>
-    <Container>
-      <Row className="justify-content-center">
-        <Col md="8">
-          <Card>
-            <Card.Header>ユーザー情報</Card.Header>
-            <Card.Body>
-              <Form>
-                <Form.Group as={Row}>
-                  <Col md="4" className="text-md-right">
-                    <Form.Label>Name</Form.Label>
-                  </Col>
-                  <Col md="6">
-                    <Form.Control
-                      type="text"
-                      defaultValue={user.name}
-                      onChange={(e) => handleChangeUser(e, 'name')}
-                    />
-                  </Col>
-                </Form.Group>
-
-                <Form.Group as={Row}>
-                  <Col md="4" className="text-md-right">
-                    <Form.Label>Email</Form.Label>
-                  </Col>
-                  <Col md="6">
-                    <Form.Control
-                      type="text"
-                      defaultValue={user.email}
-                      onChange={(e) => handleChangeUser(e, 'email')}
-                    />
-                  </Col>
-                </Form.Group>
-
-                <Form.Group as={Row}>
-                  <Col md="4" className="text-md-right">
-                    <Form.Label>Bio</Form.Label>
-                  </Col>
-                  <Col md="6">
-                    <Form.Control
-                      as="textarea"
-                      rows={5}
-                      defaultValue={user.bio}
-                      onChange={(e) => handleChangeUser(e, 'bio')}
-                    />
-                  </Col>
-                </Form.Group>
-
-                <Form.Group as={Row}>
-                  <Col md={{ span:8, offset: 4}}>
-                    <Button onClick={handleSave}>更新</Button>
-                  </Col>
-                </Form.Group>
-
-              </Form>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+      {user.id === _params.authenticatedUserId &&
+        <UserDetailEditor
+          user={user}
+          handleChangeUser={handleChangeUser}
+          handleSave={handleSave}
+        />
+      }
     </>
   );
 }
