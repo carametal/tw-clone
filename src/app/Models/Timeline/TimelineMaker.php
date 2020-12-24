@@ -26,6 +26,11 @@ class TimelineMaker extends Model
         {
             return TimelineFavorites::make($this->user_id, $query);
         }
+        else if($request->query(Timeline::REQUEST_KEY_TYPE) === Timeline::TIMELINE_TYPE_USER)
+        {
+            $specified_user_id = $request->query(Timeline::REQUEST_KEY_USER_ID);
+            return TimelineUser::make($query, $specified_user_id);
+        }
         return TimelineAll::make($query);
     }
 
