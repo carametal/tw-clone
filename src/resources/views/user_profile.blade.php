@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div id="user-root"></div>
+<div id="user-profile"></div>
 <script>
   const _params = {};
   _params.id = <?php echo json_encode($id) ?>;
   _params.user = <?php echo json_encode($user) ?>;
-  _params.authenticatedUserId = <?php echo json_encode($authenticated_user_id) ?>;
 </script>
-<script src="{{ asset('js/userapp.js') }}" defer></script>
+<script src="{{ asset('js/user-profile.js') }}" defer></script>
 @endsection
