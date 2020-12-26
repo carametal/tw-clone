@@ -25,7 +25,9 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('users', App\Http\Controllers\UsersController::class)->only(['index', 'show', 'update']);
+Route::resource('users', App\Http\Controllers\UsersController::class)->only(['index', 'show']);
+
+Route::resource('user-profiles', App\Http\Controllers\UserProfilesControler::class)->only(['show', 'update']);
 
 Route::resource('tweets', App\Http\Controllers\TweetController::class)->only(['store', 'destroy']);
 

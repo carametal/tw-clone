@@ -10,6 +10,15 @@ use Throwable;
 
 class UsersController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
@@ -29,32 +38,5 @@ class UsersController extends Controller
             'authenticated_user_id' => Auth::user()->id,
             'updated' => false
         ]);
-    }
-
-    public function update(int $id, Request $request)
-    {
-        try
-        {
-            $user = User::find($id);
-            if($user === null)
-            {
-                return abort(404);
-            }
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->bio = $request->bio;
-            $user->save();
-            $params = [
-                'id' => $id,
-                'user' => $user,
-                'authenticated_user_id' => Auth::user()->id,
-                'updated' => true
-            ];
-            return json_encode($params);
-        }
-        catch (Throwable $th)
-        {
-            throw $th;
-        }
     }
 }
