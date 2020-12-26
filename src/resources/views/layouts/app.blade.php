@@ -35,7 +35,12 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/') }}">
-                                Home
+                                ホーム
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/users') }}">
+                                ユーザー一覧
                             </a>
                         </li>
                     </ul>

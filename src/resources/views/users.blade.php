@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-  <h1>It is users.</h1>
-  <?php  foreach ($users as $key => $value): ?>
-    <a href="{{ route('user', ['id' => $value->id]) }}">{{$value->name}} {{$value->email}}</a>
-  <?php endforeach; ?>
-</div>
+<div id="user-list"></div>
+<script>
+  const _params = {};
+  _params.users = <?php echo json_encode($users) ?>;
+  _params.loginUser = <?php echo json_encode($login_user) ?>;
+</script>
+<script src="{{ asset('js/userlist.js') }}" defer></script>
 @endsection

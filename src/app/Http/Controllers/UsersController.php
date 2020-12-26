@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Throwable;
 
 class UsersController extends Controller
 {
@@ -23,7 +21,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = DB::table('users')->get();
-        return view('users', ['users' => $users]);
+        return view('users', ['users' => $users, 'login_user' => Auth::user()]);
     }
 
     public function show($id)
