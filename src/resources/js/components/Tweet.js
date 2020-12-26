@@ -2,6 +2,11 @@ import React from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 
 export default function Tweet(props) {
+  const handleRemoveTweet = () => {
+    if (window.confirm('本当にツイートを削除しますか？')) {
+      props.handleRemoveTweet(props.tweet)
+    }
+  };
   return (
     <Row key={props.tweet.id} style={{ padding: '0.75em 1.25em', border: '1px solid rgba(0, 0, 0, 0.125)', borderTop: 'none', backgroundColor: 'white' }}>
       <Col>
@@ -40,7 +45,7 @@ export default function Tweet(props) {
             <Button
               size="sm"
               variant="danger"
-              onClick={() => props.handleRemoveTweet(props.tweet)}
+              onClick={handleRemoveTweet}
             >ツイートを削除する</Button>
           }
         </div>
