@@ -97,7 +97,7 @@ export default function UserDetail(props) {
           </Col>
           <Col md="8">
               <Row style={{ padding: '0.75em 1.25em', border: '1px solid rgba(0, 0, 0, 0.125)', backgroundColor: 'rgba(0, 0, 0, 0.03)' }}>
-                <h3>{props.user.name}のツイート</h3>
+                <h3 style={{marginBottom: 0}}>{props.user.name}のツイート</h3>
               </Row>
               {tweets.map(t =>
                 <Tweet

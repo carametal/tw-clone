@@ -97,7 +97,7 @@ function Home(props) {
           <Card>
             <Card.Body style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.125)"}}>
               <h3><a href={"/users/" + _loginUser.id} style={{color:"black"}}>{loginUser.name}</a></h3>
-              <div> ツイート数: { usersDetail.count}</div>
+              <div><a href={"/users/" + _loginUser.id} style={{color:"black"}}>ツイート数: { usersDetail.count}</a></div>
               <div>フォロー: { usersDetail.follows}</div>
               <div>フォロワー: { usersDetail.followers}</div>
             </Card.Body>
