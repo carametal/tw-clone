@@ -19,7 +19,6 @@ class TimelineUserTest extends TimelineTest
     public function testTimelineHasSpecifiedUserTweets()
     {
         $query = '?' . Timeline::REQUEST_KEY_TYPE . '=' . Timeline::TIMELINE_TYPE_USER . '&user_id=' . $this->user2->id;
-        var_dump($query);
         $response = $this->get('timeline/' . $this->user->id . $query);
         $response->assertStatus(200);
         $json = $response->json();

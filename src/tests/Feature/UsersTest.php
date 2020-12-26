@@ -8,9 +8,15 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
+use function PHPUnit\Framework\assertEquals;
+
 class UsersTest extends TestCase
 {
     use RefreshDatabase;
+
+    const NUM_OF_USERS_WITHOUT_LOGIN_USER = 3;
+
+    protected $users = [];
 
     protected $name = 'newName';
     protected $email = 'newName@example.com';
@@ -20,13 +26,26 @@ class UsersTest extends TestCase
     {
         parent::setUp();
         $password = 'testUser';
-        $user = User::factory()->create([
+        $this->users[] = User::factory()->create([
             'password' => bcrypt($password)
         ]);
         $this->post(route('login'), [
-            'email' => $user->email,
+            'email' => $this->users[0]->email,
             'password' => $password,
         ]);
+        for ($i=0; $i < self::NUM_OF_USERS_WITHOUT_LOGIN_USER ; $i++) {
+            $this->users[] = User::factory()->create();
+        }
+    }
+
+    public function testGetUsers()
+    {
+        $response = $this->get('users');
+        $response->assertStatus(200);
+        $users = $response->viewData('users');
+        foreach ($users as $index => $value) {
+            assertEquals($this->users[$index]->id, $value->id);
+        }
     }
 
     public function testGetUser()
