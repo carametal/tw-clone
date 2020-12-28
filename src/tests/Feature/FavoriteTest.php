@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\FavoritesController;
 use App\Models\Favorite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
@@ -66,13 +67,13 @@ class FavoriteTest extends TestCase
             'tweetId' => $tweet->id
         ]);
         $response->assertStatus(403);
-        $this->assertEquals($response->json()['errorCode'], 1);
+        $this->assertEquals($response->json()['code'], FavoritesController::ERROR_ALREADY_FAVORITED['code']);
     }
 
-    public function testFavoriteNotExists()
+    public function testFavoriteIsNotExists()
     {
         $response = $this->delete('favorites/9999');
         $response->assertStatus(403);
-        $this->assertEquals($response->json()['errorCode'], 1);
+        $this->assertEquals($response->json()['code'], FavoritesController::ERROR_FAVORITE_IS_NOT_EXITS['code']);
     }
 }

@@ -8,6 +8,14 @@ use Throwable;
 
 class FavoritesController extends Controller
 {
+    const ERROR_ALREADY_FAVORITED = [
+        'code' => 1,
+        'message' => 'already favorited.'
+    ];
+    const ERROR_FAVORITE_IS_NOT_EXITS = [
+        'code' => 2,
+        'message' => 'favorite is not exists.'
+    ];
     public function __construct()
     {
         $this->middleware('auth');
@@ -24,13 +32,12 @@ class FavoritesController extends Controller
         try {
             if(0 < Favorite::where('user_id', $request->userId)->where('favorite_tweet_id', $request->tweetId)->count())
             {
-                return response()->json(['errorCode' => 1, 'message' => 'already favorited'], 403);
+                return response()->json(self::ERROR_ALREADY_FAVORITED, 403);
             }
             $favorite = Favorite::factory()->create([
                 'user_id' => $request->userId,
                 'favorite_tweet_id' => $request->tweetId
             ]);
-            echo "success\n";
             return json_encode(['favorite' => $favorite]);
         } catch (Throwable $th) {
             throw $th;
@@ -49,7 +56,7 @@ class FavoritesController extends Controller
             $favorite = Favorite::find($id);
             if($favorite == null)
             {
-                return response()->json(['errorCode' => 1, 'message' => 'can not find favorite.'], 403);
+                return response()->json(self::ERROR_FAVORITE_IS_NOT_EXITS, 403);
             }
             return json_encode(['favorite' => $favorite->delete($favorite)]);
         } catch (Throwable $th) {
