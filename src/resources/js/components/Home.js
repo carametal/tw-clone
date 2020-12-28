@@ -25,6 +25,7 @@ function Home(props) {
       .then(res => {
         initialTweetText();
         updateTimeline();
+        updateUsersDetail();
       })
       .catch(error => console.error(error));
   }
@@ -38,12 +39,12 @@ function Home(props) {
   useEffect(updateTimeline, []);
 
   const [usersDetail, setUsersDetail] = useState({ count: 0, follows: 0, followers: 0});
-  const updateTweetsCount = () => {
+  const updateUsersDetail = () => {
     axios.get('tweets-detail/' + loginUser.id)
       .then(res => setUsersDetail(res.data))
       .catch(error => console.error(error));
   };
-  useEffect(updateTweetsCount, []);
+  useEffect(updateUsersDetail, []);
 
   const doFollow = (tweet, follow) => {
     const newTweets = tweets.map(t => {
@@ -53,6 +54,7 @@ function Home(props) {
       return t;
     });
     setTweets(newTweets);
+    updateUsersDetail();
   }
 
   const removeFollow = (tweet) => {
@@ -63,6 +65,7 @@ function Home(props) {
       return t;
     });
     setTweets(newTweets);
+    updateUsersDetail();
   };
 
   const doFavorite = (tweet, favorite) => {
@@ -72,6 +75,7 @@ function Home(props) {
     });
     copiedTweets[tweetIndex].favorite_id = favorite.id;
     setTweets(copiedTweets);
+    updateUsersDetail();
   };
 
   const removeFavorite = (tweet) => {
@@ -81,6 +85,7 @@ function Home(props) {
     });
     copiedTweets[tweetIndex].favorite_id = null;
     setTweets(copiedTweets);
+    updateUsersDetail();
   };
 
   const removeTweet = (tweet) => {
@@ -88,6 +93,7 @@ function Home(props) {
       return tweet !== t;
     });
     setTweets(newTweets);
+    updateUsersDetail();
   };
 
   return(
@@ -97,9 +103,9 @@ function Home(props) {
           <Card>
             <Card.Body style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.125)"}}>
               <h3><a href={"/users/" + _loginUser.id} style={{color:"black"}}>{loginUser.name}</a></h3>
-              <div><a href={"/users/" + _loginUser.id} style={{color:"black"}}>ツイート数: { usersDetail.count}</a></div>
-              <div>フォロー: { usersDetail.follows}</div>
-              <div>フォロワー: { usersDetail.followers}</div>
+              <div><a href={"/users/" + _loginUser.id} style={{color:"black"}}>ツイート数: { usersDetail.count || 0}</a></div>
+              <div>フォロー: { usersDetail.follows || 0}</div>
+              <div>フォロワー: { usersDetail.followers || 0}</div>
             </Card.Body>
             <Card.Body>
               <Form.Control
