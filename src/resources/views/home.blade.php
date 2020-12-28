@@ -2,4 +2,5 @@
 
 @section('content')
 <div id="home"></div>
+<script src="{{ asset('js/app.js') }}" defer></script>
 @endsection
