@@ -2,6 +2,12 @@ import React, {useState} from 'react';
 import {Col, Row, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
 import Tweet from './Tweet';
 
+const FAVORITE_ERROR_CODES = {
+  ALREADY_FAVORITED: 1,
+  FAVORITE_IS_NOT_EXISTS: 2,
+};
+
+
 export default function TimeLine(props) {
   const [selectedTweetsMode, setSelectedTweetsMode] = useState('all');
   const handleFollow = (tweet) => {
@@ -35,16 +41,24 @@ export default function TimeLine(props) {
       .then(res => {
         props.doFavorite(tweet, res.data.favorite);
       })
-      .catch();
+      .catch(error => {
+        const errorData = error.response.data;
+        if(errorData.code === FAVORITE_ERROR_CODES.ALREADY_FAVORITED) {
+          console.error(errorData.message);
+          props.doFavorite(tweet, errorData.favorite);
+          return;
+        }
+        console.error(error);
+      });
   };
 
   const handleRemoveFavorite = (tweet) => {
     axios.delete('favorites/' + tweet.favorite_id)
-      .then(res => {
+      .then(() => {
         props.removeFavorite(tweet);
       })
       .catch(error => {
-        console.error(error);
+        console.log(error.response.data);
       });
   };
 

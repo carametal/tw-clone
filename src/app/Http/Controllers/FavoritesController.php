@@ -30,9 +30,12 @@ class FavoritesController extends Controller
     public function store(Request $request)
     {
         try {
-            if(0 < Favorite::where('user_id', $request->userId)->where('favorite_tweet_id', $request->tweetId)->count())
+            $favorite = Favorite::where('user_id', $request->userId)->where('favorite_tweet_id', $request->tweetId)->first();
+            if($favorite !== null)
             {
-                return response()->json(self::ERROR_ALREADY_FAVORITED, 403);
+                $json = self::ERROR_ALREADY_FAVORITED;
+                $json['favorite'] = $favorite;
+                return response()->json($json, 403);
             }
             $favorite = Favorite::factory()->create([
                 'user_id' => $request->userId,

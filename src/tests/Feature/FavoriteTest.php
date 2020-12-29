@@ -58,7 +58,7 @@ class FavoriteTest extends TestCase
     public function testDuplicateFavorite()
     {
         $tweet = Tweet::factory()->create();
-        Favorite::factory()->create([
+        $favorite = Favorite::factory()->create([
             'user_id' => $this->user->id,
             'favorite_tweet_id' => $tweet->id
         ]);
@@ -67,6 +67,7 @@ class FavoriteTest extends TestCase
             'tweetId' => $tweet->id
         ]);
         $response->assertStatus(403);
+        $this->assertEquals($favorite->id, $response->json()['favorite']['id']);
         $this->assertEquals($response->json()['code'], FavoritesController::ERROR_ALREADY_FAVORITED['code']);
     }
 
