@@ -50,10 +50,10 @@ class UsersTest extends TestCase
 
     public function testGetUser()
     {
-        $users = new Users();
-        $users->update($this->name, $this->email, $this->bio);
-        $this->assertEquals(Auth::user()->name, $this->name);
-        $this->assertEquals(Auth::user()->email, $this->email);
-        $this->assertEquals(Auth::user()->bio, $this->bio);
+        $response = $this->get("/users/{$this->users[0]->id}");
+        $user = $response->viewData('user');
+        $this->assertEquals($this->users[0]->name, $user['name']);
+        $this->assertEquals($this->users[0]->email, $user['email']);
+        $this->assertEquals($this->users[0]->bio, $user['bio']);
     }
 }
