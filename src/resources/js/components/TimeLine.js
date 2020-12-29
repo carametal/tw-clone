@@ -6,6 +6,10 @@ const FAVORITE_ERROR_CODES = {
   ALREADY_FAVORITED: 1,
   FAVORITE_IS_NOT_EXISTS: 2,
 };
+const FOLLOW_ERROR_CODES = {
+  ALREADY_FOLLOW: 1,
+  FOLLOW_IS_NOT_EXISTS: 2,
+};
 
 
 export default function TimeLine(props) {
@@ -19,7 +23,13 @@ export default function TimeLine(props) {
       .then(res => {
         props.doFollow(tweet, res.data.follow);
       })
-      .catch();
+      .catch(error => {
+        const errorData = error.response.data;
+        if(errorData.code === FOLLOW_ERROR_CODES.ALREADY_FOLLOW) {
+          props.doFollow(tweet, errorData.follow);
+          console.error(error.message);
+        }
+      });
   };
   const handleRemoveFollow = (tweet) => {
     const params = {
@@ -31,7 +41,13 @@ export default function TimeLine(props) {
       .then(() => {
         props.removeFollow(tweet);
       })
-      .catch();
+      .catch(error => {
+        const errorData = error.response.data;
+        if(errorData.code === FOLLOW_ERROR_CODES.FOLLOW_IS_NOT_EXISTS) {
+          props.removeFollow(tweet);
+          console.error(error.message);
+        }
+      });
   };
   const handleFavorite = (tweet) => {
     const params = {

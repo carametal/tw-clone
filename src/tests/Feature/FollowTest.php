@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\FollowsController;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
 use App\Models\Follow;
@@ -50,5 +51,28 @@ class FollowTest extends TestCase
         $this->assertDatabaseMissing('follows', [
             'id' => $follow->id
         ]);
+    }
+
+    public function testDuplicateFollow()
+    {
+        $follow = Follow::factory()->create();
+        $response = $this->post('follows', [
+            'userId' => $follow->user_id,
+            'followUserId' => $follow->follow_user_id
+        ]);
+        $response->assertStatus(403);
+        $json =$response->json();
+        $this->assertEquals($follow->id, $json['follow']['id']);
+        $this->assertEquals($json['code'], FollowsController::ERROR_FOLLOWED['code']);
+        $this->assertEquals($json['message'], FollowsController::ERROR_FOLLOWED['message']);
+    }
+
+    public function testFollowIsNotExists()
+    {
+        $response = $this->delete('follows/9999');
+        $response->assertStatus(403);
+        $json =$response->json();
+        $this->assertEquals($json['code'], FollowsController::ERROR_FOLLOW_IS_NOT_EXITS['code']);
+        $this->assertEquals($json['message'], FollowsController::ERROR_FOLLOW_IS_NOT_EXITS['message']);
     }
 }
