@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tables\Follows;
+use App\Models\Follow;
 use Illuminate\Http\Request;
 
 class FollowsController extends Controller
 {
+    const ERROR_FOLLOWED = [
+        'code' => 1,
+        'message' => 'already followed.'
+    ];
+    const ERROR_FOLLOW_IS_NOT_EXITS = [
+        'code' => 2,
+        'message' => 'follow is not exists.'
+    ];
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -14,13 +23,15 @@ class FollowsController extends Controller
 
     public function store(Request $request)
     {
-        $follows = new Follows();
-        return json_encode(['follow' => $follows->create($request)]);
+        return json_encode(['follow' => Follow::factory()->create([
+            'user_id' => $request->userId,
+            'follow_user_id' => $request->followUserId,
+        ])]);
     }
 
     public function destroy($id)
     {
-        $follows = new Follows();
-        $follows->delete($id);
+        $follow = Follow::find($id);
+        $follow->delete();
     }
 }

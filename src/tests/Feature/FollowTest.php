@@ -32,6 +32,7 @@ class FollowTest extends TestCase
     public function testFollow()
     {
         $response = $this->post('follows', [
+            'userId' => $this->user1->id,
             'followUserId' => $this->user2->id
         ]);
         $response->assertStatus(200);

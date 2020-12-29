@@ -12,6 +12,7 @@ export default function TimeLine(props) {
   const [selectedTweetsMode, setSelectedTweetsMode] = useState('all');
   const handleFollow = (tweet) => {
     const params = {
+      userId: _loginUser.id,
       followUserId: tweet.user_id,
     }
     axios.post('follows', params)
