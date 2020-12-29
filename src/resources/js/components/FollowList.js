@@ -1,8 +1,11 @@
-import React from 'react';
-import {Col, Container, Row} from 'react-bootstrap';
+import React, { useState } from 'react';
+import {Col, Container, Row, Table} from 'react-bootstrap';
 import ReactDOM from 'react-dom';
+import UserDetailCard from './UserDetailCard';
 
 function FollowList(props) {
+  const [user, setUser] = useState(_params.loginUser);
+  const [follows, setFollows] = useState(_params.follows);
   return(
     <Container>
       <Row>
@@ -11,6 +14,27 @@ function FollowList(props) {
         </Col>
       </Row>
       <Row>
+        <Col md="4">
+          <UserDetailCard user={user}/>
+        </Col>
+        <Col md="8">
+          <Table>
+            <thead>
+              <tr>
+                <th>名前</th>
+                <th>自己紹介</th>
+              </tr>
+            </thead>
+            <tbody>
+              {follows.map(f =>
+                <tr key={f.id}>
+                  <td>{f.user_id}</td>
+                  <td>{f.follow_user_id}</td>
+                </tr>
+              )}
+            </tbody>
+          </Table>
+        </Col>
       </Row>
     </Container>
   );
