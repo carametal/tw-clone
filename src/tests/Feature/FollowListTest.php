@@ -26,7 +26,7 @@ class FollowListTest extends TestCaseNeedsLogin
         }
         $response = $this->get("/follow-list/{$this->user->id}");
         $response->assertStatus(200);
-        $follows = $response->json();
+        $follows = $response->viewData('follows');
         foreach ($follows as $index => $follow) {
             $this->assertEquals($follows[$index]['id'], $follow['id']);
         }
