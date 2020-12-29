@@ -4,12 +4,6 @@ import Tweet from './Tweet';
 import UserDetailCard from './UserDetailCard';
 
 export default function UserDetail(props) {
-  const [userDetail, setUserDetail] = useState({});
-  useEffect(() => {
-    axios.get('/tweets-detail/' + props.user.id)
-      .then(res => setUserDetail(res.data))
-      .catch(error => console.error(error));
-  }, []);
   const [tweets, setTweets] = useState([]);
   useEffect(() => {
     axios.get('/timeline/' + _loginUser.id + '?type=user&user_id=' + props.user.id)
@@ -86,10 +80,7 @@ export default function UserDetail(props) {
       <Container>
         <Row className="justify-content-center">
           <Col md="4">
-            <UserDetailCard
-              user={_loginUser}
-              userDetail={userDetail}
-            />
+            <UserDetailCard user={_loginUser}/>
           </Col>
           <Col md="8">
               <Row style={{ padding: '0.75em 1.25em', border: '1px solid rgba(0, 0, 0, 0.125)', backgroundColor: 'rgba(0, 0, 0, 0.03)' }}>
