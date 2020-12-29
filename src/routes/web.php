@@ -39,6 +39,8 @@ route::resource('follows', App\Http\Controllers\FollowsController::class)->only(
 
 route::resource('favorites', App\Http\Controllers\FavoritesController::class)->only(['store', 'destroy']);
 
+Route::resource('follow-list', App\Http\Controllers\FollowListController::class)->only(['show']);
+
 route::get('/info', function() {
     return phpinfo();
 });
