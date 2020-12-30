@@ -80,7 +80,7 @@ export default function UserDetail(props) {
       <Container>
         <Row className="justify-content-center">
           <Col md="4">
-            <UserDetailCard user={_loginUser}/>
+            <UserDetailCard user={props.user}/>
           </Col>
           <Col md="8">
               <Row style={{ padding: '0.75em 1.25em', border: '1px solid rgba(0, 0, 0, 0.125)', backgroundColor: 'rgba(0, 0, 0, 0.03)' }}>
