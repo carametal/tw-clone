@@ -15,5 +15,6 @@ mix.react('resources/js/app.js', 'public/js')
     .react('resources/js/userapp.js', 'public/js')
     .react('resources/js/user-profile.js', 'public/js')
     .react('resources/js/userlist.js', 'public/js')
+    .react('resources/js/follow-list.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .sourceMaps();

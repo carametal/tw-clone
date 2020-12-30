@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import Tweet from './Tweet';
+import UserDetailCard from './UserDetailCard';
 
 export default function UserDetail(props) {
-  const [usersDetail, setUsersDetail] = useState({});
-  useEffect(() => {
-    axios.get('/tweets-detail/' + props.user.id)
-      .then(res => setUsersDetail(res.data))
-      .catch(error => console.error(error));
-  }, []);
   const [tweets, setTweets] = useState([]);
   useEffect(() => {
     axios.get('/timeline/' + _loginUser.id + '?type=user&user_id=' + props.user.id)
@@ -85,15 +80,7 @@ export default function UserDetail(props) {
       <Container>
         <Row className="justify-content-center">
           <Col md="4">
-            <Card>
-              <Card.Body style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.125)"}}>
-                <h3>{ props.user.name }</h3>
-                <div> ツイート数: { usersDetail.count}</div>
-                <div>フォロー: { usersDetail.follows || 0}</div>
-                <div>フォロワー: { usersDetail.followers || 0}</div>
-                <div>{props.user.bio}</div>
-              </Card.Body>
-            </Card>
+            <UserDetailCard user={_loginUser}/>
           </Col>
           <Col md="8">
               <Row style={{ padding: '0.75em 1.25em', border: '1px solid rgba(0, 0, 0, 0.125)', backgroundColor: 'rgba(0, 0, 0, 0.03)' }}>

@@ -7,6 +7,9 @@ use Tests\TestCase;
 
 abstract class TestCaseNeedsLogin extends TestCase
 {
+    protected $user;
+    protected $password = 'passwordForTestCaseNeedsLogin';
+
     public function setUp(): void
     {
         parent::setup();
