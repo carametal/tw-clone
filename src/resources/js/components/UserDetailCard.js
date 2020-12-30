@@ -12,8 +12,8 @@ export default function UserDetailCard(props) {
     <Card>
       <Card.Body style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.125)"}}>
         <h3>{ props.user.name }</h3>
-        <div> ツイート数: { userDetail.count}</div>
-        <div>フォロー: { userDetail.follows || 0}</div>
+        <div><a href={"/users/" + _loginUser.id} style={{color:"black"}}>ツイート数: { userDetail.count || 0}</a></div>
+        <div><a href={"/follow-list/" + _loginUser.id} style={{color:"black"}}>フォロー: { userDetail.follows || 0}</a></div>
         <div>フォロワー: { userDetail.followers || 0}</div>
         <div>{props.user.bio}</div>
       </Card.Body>
