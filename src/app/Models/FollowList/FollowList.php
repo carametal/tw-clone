@@ -2,8 +2,8 @@
 
 namespace App\Models\FollowList;
 
-use App\Models\Follow;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class FollowList
 {
@@ -16,7 +16,11 @@ class FollowList
 
     public static function make(int $user_id): FollowList
     {
-        $follows = Follow::where('user_id', $user_id)->get();
+        $follows = DB::table('follows')
+            ->select(DB::raw('follows.*, users.name as follow_user_name, users.bio as follow_user_bio'))
+            ->where('user_id', $user_id)
+            ->join('users', 'users.id', 'follows.follow_user_id')
+            ->get();
         return new FollowList($follows);
     }
 }

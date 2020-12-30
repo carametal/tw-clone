@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class FollowListController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display the specified resource.
      *

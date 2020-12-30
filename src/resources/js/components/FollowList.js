@@ -28,8 +28,8 @@ function FollowList(props) {
             <tbody>
               {follows.map(f =>
                 <tr key={f.id}>
-                  <td>{f.user_id}</td>
-                  <td>{f.follow_user_id}</td>
+                  <td>{f.follow_user_name}</td>
+                  <td>{f.follow_user_bio}</td>
                 </tr>
               )}
             </tbody>
