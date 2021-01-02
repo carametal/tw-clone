@@ -6,6 +6,7 @@ import UserDetailCard from './UserDetailCard';
 function FollowerList(props) {
   const [user, setUser] = useState(_params.loginUser);
   const [followers, setFollowers] = useState(_params.followers);
+  console.log(followers);
   return(
     <Container>
       <Row>
@@ -28,8 +29,8 @@ function FollowerList(props) {
             <tbody>
               {followers.map(f =>
                 <tr key={f.id}>
-                  <td>{f.follow_user_name}</td>
-                  <td>{f.follow_user_bio}</td>
+                  <td>{f.follower_user_name}</td>
+                  <td>{f.follower_user_bio}</td>
                 </tr>
               )}
             </tbody>

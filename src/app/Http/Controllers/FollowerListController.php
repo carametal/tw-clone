@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Follow;
+use App\Models\FollowerList\FollowerListMaker;
 use Illuminate\Support\Facades\Auth;
 
 class FollowerListController extends Controller
@@ -20,9 +21,10 @@ class FollowerListController extends Controller
      */
     public function show($id)
     {
-        $followers = Follow::where('follow_user_id', $id)->get();
+        $maker = new FollowerListMaker();
+        $follower_list = $maker->get($id);
         return view('follower_list', [
-            'followers' => $followers,
+            'followers' => $follower_list->followers,
             'login_user' => Auth::user()
         ]);
     }
