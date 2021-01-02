@@ -2,6 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/js/follow-list.js": "/js/follow-list.js",
+    "/js/follower-list.js": "/js/follower-list.js",
     "/js/user-profile.js": "/js/user-profile.js",
     "/js/userapp.js": "/js/userapp.js",
     "/js/userlist.js": "/js/userlist.js"
