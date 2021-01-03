@@ -9,10 +9,19 @@ use Throwable;
 
 class TweetController extends Controller
 {
+    const ERROR_TWEET_TOO_LONG = [
+        'code' => 1,
+        'message' => 'Tweet must be 140 characters or less'
+    ];
+
     public function store(Request $request)
     {
         try
         {
+            if(strlen($request->tweet) > 140)
+            {
+                return response()->json(self::ERROR_TWEET_TOO_LONG, 400);
+            }
             Tweet::factory()->create([
                 'tweet' => $request->tweet,
                 'user_id' => $request->userId

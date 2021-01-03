@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\Tables\Tweets;
 use App\Models\Tweet;
 use App\Models\User;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 
 class TweetTest extends TestCaseNeedsLogin
 {
     use RefreshDatabase;
+    use WithFaker;
 
     const REST_URL = "tweets";
 
@@ -36,13 +38,24 @@ class TweetTest extends TestCaseNeedsLogin
         $tweet = 'testTweetContent';
         $request = [
             'tweet' => $tweet,
-            'userId' => Auth::user()->id
+            'userId' => $this->user->id
         ];
         $response = $this->post(self::REST_URL, $request);
         $response->assertStatus(200);
         $this->assertDatabaseHas('tweets', [
             'tweet' => $tweet
         ]);
+    }
+
+    public function testTweet140CharactersOrMore()
+    {
+        $text = $this->faker()->realText(200);
+        var_dump($text);
+        $response = $this->post(self::REST_URL, [
+            'tweet' => $text,
+            'userId' => $this->user->id
+        ]);
+        $response->assertStatus(400);
     }
 
     public function testRemoveTweet()
