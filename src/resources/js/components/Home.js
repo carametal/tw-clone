@@ -16,6 +16,11 @@ function Home(props) {
   const handleTweet = () => {
     if(!tweetText) {
       alert("ツイートが空です");
+      return;
+    }
+    if(tweetText.length > 140) {
+      alert("ツイートが140文字以上です");
+      return;
     }
     const params = {
       tweet: tweetText,
@@ -96,6 +101,8 @@ function Home(props) {
     updateUserDetail();
   };
 
+  const textColorOfTweetLength = tweetText.length > 140 ? 'red' : 'black';
+
   return(
     <Container>
       <Row className="justify-content-center">
@@ -116,11 +123,14 @@ function Home(props) {
                 style={{ resize: 'none'}}
                 onChange={(e) => setTweetText(e.target.value)}
               />
+              <div style={{textAlign: 'right', color: textColorOfTweetLength}}>
+                <span>{tweetText.length}/140</span>
+              </div>
               <Button
                 variant="primary"
                 style={{ margin: "7px 0", width: "100%"}}
                 onClick={(e) => handleTweet(e)}
-                disabled={!tweetText}
+                disabled={!tweetText || tweetText.length > 140}
               >ツイート</Button>
             </Card.Body>
           </Card>
