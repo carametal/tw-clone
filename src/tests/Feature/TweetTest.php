@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\TweetController;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use App\Models\Tables\Tweets;
@@ -50,12 +51,14 @@ class TweetTest extends TestCaseNeedsLogin
     public function testTweet140CharactersOrMore()
     {
         $text = $this->faker()->realText(200);
-        var_dump($text);
         $response = $this->post(self::REST_URL, [
             'tweet' => $text,
             'userId' => $this->user->id
         ]);
         $response->assertStatus(400);
+        $json = $response->json();
+        $this->assertEquals(TweetController::ERROR_TWEET_TOO_LONG['code'], $json['code']);
+        $this->assertEquals(TweetController::ERROR_TWEET_TOO_LONG['message'], $json['message']);
     }
 
     public function testRemoveTweet()
