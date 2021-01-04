@@ -1,7 +1,10 @@
 import React from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 
-export default function UserDetailEditor(props) {
+const MAX_BIO_LENGTH = 200;
+
+export default function UserDetailEditorc(props) {
+  const textColorOfBioLength = props.user.bio.length > MAX_BIO_LENGTH ? 'red': 'black';
   return (
     <Container>
       <Row className="justify-content-center">
@@ -47,12 +50,18 @@ export default function UserDetailEditor(props) {
                       defaultValue={props.user.bio}
                       onChange={(e) => props.handleChangeUser(e, 'bio')}
                     />
+                    <div style={{textAlign: 'right'}}>
+                      <span style={{color: textColorOfBioLength}}>{props.user.bio.length }/200</span>
+                    </div>
                   </Col>
                 </Form.Group>
 
                 <Form.Group as={Row}>
                   <Col md={{ span:8, offset: 4}}>
-                    <Button onClick={props.handleSave}>更新</Button>
+                    <Button
+                      onClick={props.handleSave}
+                      disabled={props.user.bio.length > MAX_BIO_LENGTH}
+                    >更新</Button>
                   </Col>
                 </Form.Group>
 
