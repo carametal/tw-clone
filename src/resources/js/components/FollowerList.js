@@ -29,7 +29,7 @@ function FollowerList(props) {
             <tbody>
               {followers.map(f =>
                 <tr key={f.id}>
-                  <td>{f.follower_user_name}</td>
+                  <td><a href={"/users/" + _loginUser.id} style={{color:"black"}}>{f.follower_user_name}</a></td>
                   <td>{f.follower_user_bio}</td>
                 </tr>
               )}
