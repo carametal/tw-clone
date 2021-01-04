@@ -24,6 +24,8 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    const DEFAULT_BIO = '自己紹介を書きましょう！';
+
     /**
      * Where to redirect users after registration.
      *
@@ -68,6 +70,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'bio' => self::DEFAULT_BIO
         ]);
     }
 }
