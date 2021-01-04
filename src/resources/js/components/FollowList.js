@@ -28,7 +28,7 @@ function FollowList(props) {
             <tbody>
               {follows.map(f =>
                 <tr key={f.id}>
-                  <td><a href={"/users/" + _loginUser.id} style={{color:"black"}}>{f.follow_user_name}</a></td>
+                  <td><a href={"/users/" + f.follow_user_id} style={{color:"black"}}>{f.follow_user_name}</a></td>
                   <td>{f.follow_user_bio}</td>
                 </tr>
               )}
