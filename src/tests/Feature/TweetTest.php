@@ -3,14 +3,11 @@
 namespace Tests\Feature;
 
 use App\Http\Controllers\TweetController;
+use App\Models\Favorite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\Request;
-use App\Models\Tables\Tweets;
 use App\Models\Tweet;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\URL;
 
 class TweetTest extends TestCaseNeedsLogin
 {
@@ -19,8 +16,11 @@ class TweetTest extends TestCaseNeedsLogin
 
     const REST_URL = "tweets";
 
+    const NUM_OF_FAVORITES = 3;
+
     protected $user;
     protected $password = 'passwordForTest';
+
 
     public function setUp(): void
     {
@@ -66,10 +66,22 @@ class TweetTest extends TestCaseNeedsLogin
         $tweet = Tweet::factory()->create([
             'user_id' => $this->user->id
         ]);
+
+        $favorites = [];
+        for ($i=0; $i < self::NUM_OF_FAVORITES ; $i++) {
+            $favorites[] = Favorite::factory()->create([
+                'favorite_tweet_id' => $tweet->id
+            ]);
+        }
         $response = $this->delete(self::REST_URL . "/{$tweet->id}");
         $response->assertStatus(200);
         $this->assertDatabaseMissing('tweets', [
             'id' => $tweet->id
         ]);
+        foreach ($favorites as $index => $favorite) {
+            $this->assertDatabaseMissing('favorites', [
+                'id' => $favorite->id
+            ]);
+        }
     }
 }

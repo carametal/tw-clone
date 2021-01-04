@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Throwable;
 
 class UserProfilesControler extends Controller
 {
@@ -53,13 +54,13 @@ class UserProfilesControler extends Controller
             }
             $user->name = $request->name;
             $user->email = $request->email;
-            $user->bio = $request->bio;
+            $user->bio = $request->bio != null ? $request->bio : '';
             $user->save();
             $params = [
                 'id' => $id,
                 'user' => $user,
                 'authenticated_user_id' => Auth::user()->id,
-                'updated' => true
+                'updated' => true,
             ];
             return json_encode($params);
         }

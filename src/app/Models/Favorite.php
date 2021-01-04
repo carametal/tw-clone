@@ -17,4 +17,10 @@ class Favorite extends Model
      * @var mixed
      */
     private $favorite_tweet_id;
+
+    protected $fillable = [
+        'id',
+        'user_id',
+        'favorite_tweet_id',
+    ];
 }
