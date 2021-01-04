@@ -16,8 +16,8 @@ function UserList(props) {
         <Table striped>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Bio</th>
+              <th>ユーザー名</th>
+              <th>自己紹介</th>
             </tr>
           </thead>
           <tbody>

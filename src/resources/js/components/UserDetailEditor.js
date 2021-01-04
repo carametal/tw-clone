@@ -12,7 +12,7 @@ export default function UserDetailEditor(props) {
               <Form>
                 <Form.Group as={Row}>
                   <Col md="4" className="text-md-right">
-                    <Form.Label>Name</Form.Label>
+                    <Form.Label>ユーザー名</Form.Label>
                   </Col>
                   <Col md="6">
                     <Form.Control
@@ -25,7 +25,7 @@ export default function UserDetailEditor(props) {
 
                 <Form.Group as={Row}>
                   <Col md="4" className="text-md-right">
-                    <Form.Label>Email</Form.Label>
+                    <Form.Label>Eメールアドレス</Form.Label>
                   </Col>
                   <Col md="6">
                     <Form.Control
@@ -38,7 +38,7 @@ export default function UserDetailEditor(props) {
 
                 <Form.Group as={Row}>
                   <Col md="4" className="text-md-right">
-                    <Form.Label>Bio</Form.Label>
+                    <Form.Label>自己紹介</Form.Label>
                   </Col>
                   <Col md="6">
                     <Form.Control
