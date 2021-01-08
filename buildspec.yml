@@ -2,9 +2,10 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      php: 7.3
     commands:
       - |
-          amazon-linux-extras install php7.3 -y
           yum install -y php-mbstring php-xml php-bcmath
 
           curl -sS https://getcomposer.org/installer | php
