@@ -4,6 +4,7 @@ phases:
   install:
     runtime-versions:
       php: 7.4
+      nodejs: 14.15
     commands:
       - |
           yum install -y php-mbstring php-xml php-bcmath
@@ -14,10 +15,6 @@ phases:
 
           yum install -y git
           yum install -y zip unzip
-      - |
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
-        . ~/.nvm/nvm.sh
-        nvm install --lts
   build:
     commands:
       - cd src/
