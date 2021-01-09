@@ -4,7 +4,7 @@ phases:
   install:
     runtime-versions:
       php: 7.4
-      nodejs: 14.15
+      nodejs: 14
     commands:
       - |
           yum install -y php-mbstring php-xml php-bcmath
