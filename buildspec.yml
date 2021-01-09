@@ -10,6 +10,7 @@ phases:
       - |
         curl -sS https://getcomposer.org/installer | php
         cp composer.phar /usr/local/bin/composer
+        unlink /usr/bin/composer
         ln -s /usr/local/bin/composer /usr/bin/composer
       - yum install -y git
       - yum install -y zip unzip
