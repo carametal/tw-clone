@@ -25,6 +25,10 @@ phases:
           yum install -y git
           yum install -y zip unzip
         fi
+      - |
+        if [ -e /tmp/node_modules.tar ]; then
+          tar xf /tmp/node_modules.tar -C ./src
+        fi
   build:
     commands:
       - cd src/
@@ -32,10 +36,6 @@ phases:
       - |
         if [ ! -e ./vendor ]; then
           composer install
-        fi
-      - |
-        if [ -e /tmp/node_modules.tar ]; then
-          tar xf /tmp/node_modules.tar -C ./src
         fi
       - npm install
       - npm run production
