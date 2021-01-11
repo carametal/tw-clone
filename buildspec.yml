@@ -8,13 +8,13 @@ phases:
     commands:
       - yum install -y tar
       - |
-        if [ -e /tmp/composer.lock] ; then
+        if [ -e /tmp/composer.lock ] ; then
           echo 'exists /tmp/compsoer.lock'
         else
           echo 'not exists /tmp/composer.lock'
         fi
       - |
-        if [ -e /tmp/vendor.tar] ; then
+        if [ -e /tmp/vendor.tar ] ; then
           echo 'exists /tmp/vendor.tar'
         else
           echo 'not exists /tmp/vendor.tar'
@@ -30,7 +30,7 @@ phases:
         if [ -e ./src/vendor ]; then
           echo 'exists ./src/vendor'
         else
-          echo 'not exits ./src/vendor'
+          echo 'not exists ./src/vendor'
         fi
       - |
         if [ ! -e ./src/vendor ]; then
