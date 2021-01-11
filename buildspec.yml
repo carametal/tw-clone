@@ -29,7 +29,10 @@ phases:
     commands:
       - cd src/
       - rm -rf .git .gitignore README.md
-      - composer install
+      - |
+        if [ ! -e ./vendor]; then
+          composer install
+        fi
       - npm install
       - npm run production
   post_build:
