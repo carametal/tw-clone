@@ -33,6 +33,10 @@ phases:
         if [ ! -e ./vendor ]; then
           composer install
         fi
+      - |
+        if [ -e /tmp/node_modules.tar ]; then
+          tar xf /tmp/nodemodules.tar -C ./src
+        fi
       - npm install
       - npm run production
   post_build:
@@ -42,6 +46,7 @@ phases:
       - ./vendor/bin/phpunit
       - cp composer.lock /tmp
       - tar cf /tmp/vendor.tar vendor
+      - tar cf /tmp/node_modules.tar ./mode_modules
 
 artifacts:
   files:
@@ -51,3 +56,4 @@ cache:
   paths:
     - /tmp/composer.lock
     - /tmp/vendor.tar
+    - /tmp/node_modules.tar
