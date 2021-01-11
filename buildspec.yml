@@ -46,7 +46,7 @@ phases:
       - ./vendor/bin/phpunit
       - cp composer.lock /tmp
       - tar cf /tmp/vendor.tar vendor
-      - tar cf /tmp/node_modules.tar ./mode_modules
+      - tar cf /tmp/node_modules.tar ./node_modules
 
 artifacts:
   files:
