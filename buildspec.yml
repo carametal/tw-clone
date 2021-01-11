@@ -8,14 +8,14 @@ phases:
     commands:
       - |
         yum install -y tar
-        if [ -e /tmp/composer.lock] && [ -e /tmp/vendor.tar]; then
+        if [ -e /tmp/composer.lock ] && [ -e /tmp/vendor.tar ]; then
           diff /tmp/composer.lock ./composer.lock
           if [$? -eq 0]; then
             tar xf /tmp/vendor.tar
           fi
         fi
       - |
-        if [ ! -e ./vendor]; then
+        if [ ! -e ./vendor ]; then
           yum install -y php-mbstring php-xml php-bcmath
           yum install -y tar
           curl -sS https://getcomposer.org/installer | php
@@ -30,7 +30,7 @@ phases:
       - cd src/
       - rm -rf .git .gitignore README.md
       - |
-        if [ ! -e ./vendor]; then
+        if [ ! -e ./vendor ]; then
           composer install
         fi
       - npm install
