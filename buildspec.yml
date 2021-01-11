@@ -13,9 +13,12 @@ phases:
       - ln -s /usr/local/bin/composer /usr/bin/composer
       - yum install -y git
       - yum install -y zip unzip
-  build:
+  pre_build:
     commands:
       - cd src/
+      - cp -r /tmp/.composer_cache/ ./.composer
+  build:
+    commands:
       - rm -rf .git .gitignore README.md
       - composer install
       - npm install
@@ -25,7 +28,12 @@ phases:
       - php artisan cache:clear
       - php artisan config:clear
       - ./vendor/bin/phpunit
+      - cp composer.lock
 
 artifacts:
   files:
     - '**/*'
+
+cache:
+  paths:
+    - /tmp/.composer/**/*
