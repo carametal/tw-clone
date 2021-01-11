@@ -9,13 +9,13 @@ phases:
       - |
         yum install -y tar
         if [ -e /tmp/composer.lock ] && [ -e /tmp/vendor.tar ]; then
-          diff /tmp/composer.lock ./composer.lock
+          diff /tmp/composer.lock ./src/composer.lock
           if [$? -eq 0]; then
-            tar xf /tmp/vendor.tar
+            tar xf /tmp/vendor.tar -C ./src
           fi
         fi
       - |
-        if [ ! -e ./vendor ]; then
+        if [ ! -e ./src/vendor ]; then
           yum install -y php-mbstring php-xml php-bcmath
           yum install -y tar
           curl -sS https://getcomposer.org/installer | php
