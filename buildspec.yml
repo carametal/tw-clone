@@ -7,18 +7,23 @@ phases:
       nodejs: 12
     commands:
       - yum install -y php-mbstring php-xml php-bcmath
+      - yum install -y tar
+      - |
+        if [ -e /tmp/composer.lock] && [ -e /tmp/vendor.tar]; then
+          diff /tmp/composer.lock ./composer.lock
+          if [$? -eq 0]; then
+            tar xf /tmp/vendor.tar
+          fi
+        fi
       - curl -sS https://getcomposer.org/installer | php
       - cp composer.phar /usr/local/bin/composer
       - unlink /usr/bin/composer
       - ln -s /usr/local/bin/composer /usr/bin/composer
       - yum install -y git
       - yum install -y zip unzip
-  pre_build:
-    commands:
-      - cd src/
-      - cp -r /tmp/.composer_cache/ ./.composer
   build:
     commands:
+      - cd src/
       - rm -rf .git .gitignore README.md
       - composer install
       - npm install
@@ -28,12 +33,14 @@ phases:
       - php artisan cache:clear
       - php artisan config:clear
       - ./vendor/bin/phpunit
-      - cp composer.lock
+      - cp composer.lock /tmp
+      - tar cf /tmp/vendor.tar vendor
 
 artifacts:
   files:
     - '**/*'
 
-cache:
+cacha:
   paths:
-    - /tmp/.composer/**/*
+    - /tmp/composer.lock
+    - /tmp/vendor.tar
