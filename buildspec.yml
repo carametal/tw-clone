@@ -6,21 +6,25 @@ phases:
       php: 7.4
       nodejs: 12
     commands:
-      - yum install -y php-mbstring php-xml php-bcmath
-      - yum install -y tar
       - |
+        yum install -y tar
         if [ -e /tmp/composer.lock] && [ -e /tmp/vendor.tar]; then
           diff /tmp/composer.lock ./composer.lock
           if [$? -eq 0]; then
             tar xf /tmp/vendor.tar
           fi
         fi
-      - curl -sS https://getcomposer.org/installer | php
-      - cp composer.phar /usr/local/bin/composer
-      - unlink /usr/bin/composer
-      - ln -s /usr/local/bin/composer /usr/bin/composer
-      - yum install -y git
-      - yum install -y zip unzip
+      - |
+        if [ ! -e ./vendor]; then
+          yum install -y php-mbstring php-xml php-bcmath
+          yum install -y tar
+          curl -sS https://getcomposer.org/installer | php
+          cp composer.phar /usr/local/bin/composer
+          unlink /usr/bin/composer
+          ln -s /usr/local/bin/composer /usr/bin/composer
+          yum install -y git
+          yum install -y zip unzip
+        fi
   build:
     commands:
       - cd src/
