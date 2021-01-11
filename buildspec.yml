@@ -6,13 +6,31 @@ phases:
       php: 7.4
       nodejs: 12
     commands:
+      - yum install -y tar
       - |
-        yum install -y tar
+        if [ -e /tmp/composer.lock] ; then
+          echo 'exists /tmp/compsoer.lock'
+        else
+          echo 'not exists /tmp/composer.lock'
+        fi
+      - |
+        if [ -e /tmp/vendor.tar] ; then
+          echo 'exists /tmp/vendor.tar'
+        else
+          echo 'not exists /tmp/vendor.tar'
+        fi
+      - |
         if [ -e /tmp/composer.lock ] && [ -e /tmp/vendor.tar ]; then
           diff /tmp/composer.lock ./src/composer.lock
           if [$? -eq 0]; then
             tar xf /tmp/vendor.tar -C ./src
           fi
+        fi
+      - |
+        if [ -e ./src/vendor ]; then
+          echo 'exists ./src/vendor'
+        else
+          echo 'not exits ./src/vendor'
         fi
       - |
         if [ ! -e ./src/vendor ]; then
