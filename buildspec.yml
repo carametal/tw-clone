@@ -35,7 +35,7 @@ phases:
         fi
       - |
         if [ -e /tmp/node_modules.tar ]; then
-          tar xf /tmp/nodemodules.tar -C ./src
+          tar xf /tmp/node_modules.tar -C ./src
         fi
       - npm install
       - npm run production
@@ -46,7 +46,7 @@ phases:
       - ./vendor/bin/phpunit
       - cp composer.lock /tmp
       - tar cf /tmp/vendor.tar vendor
-      - tar cf /tmp/node_modules.tar ./node_modules
+      - tar cf /tmp/node_modules.tar node_modules
 
 artifacts:
   files:
