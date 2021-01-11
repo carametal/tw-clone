@@ -65,7 +65,7 @@ artifacts:
   files:
     - '**/*'
 
-cacha:
+cache:
   paths:
     - /tmp/composer.lock
     - /tmp/vendor.tar
